@@ -1,0 +1,112 @@
+version: "3.7"
+
+volumes:
+  db_vol:
+
+networks:
+  frontend: # Front end Virtual Network for 'proxy', and 'app' Containers
+  backend: # Back end Virtual Network for 'app', 'db', and 'pgadmin' Containers
+
+services:
+
+  db: # DB Engine Container
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_vol:/var/lib/postgresql/data # Mount Volume to Postgres Data directory
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - backend
+    command: postgres -c log_destination=stderr -c log_statement=ddl
+    
+    
+  app: # Django Application Server Container 
+    image: mydjango:psql
+    restart: always
+    volumes:
+      - ./app:/app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "cd app && gunicorn app.wsgi:application --forwarded-allow-ips="*" --bind :8000"
+    networks:
+      - frontend
+      - backend
+    
+    depends_on:
+      - redis
+    expose:
+      - 8000
+
+  proxy: # NGINX Proxy Server Container
+    image: nginx:stable
+    restart: always
+    volumes:
+      - ./app_nginx.conf:/etc/nginx/conf.d/app_nginx.conf
+      - ./app/static:/app/static
+      - ./app/media:/app/media
+      - /etc/ssl/cert.pem:/etc/ssl/cert.pem
+      - /etc/ssl/key.pem:/etc/ssl/key.pem
+
+    ports:
+      # - "8000:8000" #TESTANDO OUTRAS COISAS AQUI. VAMOS VER SE FUNCIONA
+      - 80:80
+      - 443:443
+
+    networks:
+      - frontend
+
+    depends_on:
+      - app
+      - redis
+      - daphne  
+      
+  redis:
+    image: "redis:5"
+    restart: always
+    command: redis-server --requirepass cris123456134679
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    
+  celery:
+    build: .
+    restart: always
+    volumes:
+      - ./app:/app
+    command: bash -c "cd app && celery -A app worker -l info --without-heartbeat --without-gossip --without-mingle"
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+    
+  celery-beat:
+    build: .
+    restart: always
+    command: bash -c "cd app && celery -A app beat -l INFO --pidfile= --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+    
+  daphne:
+    build: .
+    restart: always
+    working_dir: /app
+    command: bash -c "daphne -b '::' -p 9000 app.asgi:application"
+    ports:
+      - "9000:9000"
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - redis
+

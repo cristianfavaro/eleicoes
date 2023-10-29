@@ -1,0 +1,78 @@
+version: "3.7"
+
+volumes:
+  db_vol:
+
+networks:
+  frontend: # Front end Virtual Network for 'proxy', and 'app' Containers
+  backend: # driver: bridge Backend Virtual Network for 'app', 'db', and 'pgadmin' Containers
+    
+
+services:
+
+  db: # DB Engine Container
+    image: postgres:12
+    restart: always
+    volumes:
+      - db_vol:/var/lib/postgresql/data # Mount Volume to Postgres Data directory
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - backend
+    command: postgres -c log_destination=stderr -c log_statement=all
+
+  app: 
+    restart: always
+    volumes:
+      - ./app:/app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    #take this off on production
+    ports: 
+        - "8000:8000"
+    command: >
+        sh -c "python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - frontend
+      - backend
+
+  redis:
+    image: "redis:5"
+    restart: always
+    command: redis-server --requirepass cris123456134679
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    expose:
+      - 6379
+
+  celery:
+    build: .
+    restart: always
+    volumes:
+      - ./app:/app
+    command: bash -c "celery -A app worker -l info --without-heartbeat --without-gossip --without-mingle"
+    depends_on:
+      - redis
+      - db
+      - app
+    networks:
+      - backend
+    
+  celery-beat:
+    build: .
+    restart: always
+    command: bash -c "celery -A app beat -l INFO --pidfile= --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - redis
+      - db
+      - app
+    networks:
+      - backend
