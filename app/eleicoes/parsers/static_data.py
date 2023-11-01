@@ -1,30 +1,32 @@
-import requests
-import json
-from eleicoes.models import State, Municipality
-def load(file):
-    pass
 
-def parse_data(file, election=1):
-    if "http" in file:
-        data = requests.get(file).json()
-    else:
-        with open(file) as f:
-            data = json.load(f)
+from eleicoes.models import Mun
+from .utils import load
 
-    for item in data:
-        state = State.objects.create(
-            election_id=election,
-            code=data.get("cd"),
-            name=data.get("ds"),
-        )
-        municipalities = data.get("mu")
 
-        for mun in municipalities:
-            Municipality.objects.create(
+def parse_mun(file):
+
+    data = load(file)
+    items = data["abr"]
+    for item in items:
+
+        state = item.get("cd")
+        municipalities = [
+            Mun(
                 code=mun.get("cd"),
                 code_i=mun.get("cdi"),
                 name=mun.get("nm"),
-                is_capital=mun.get("c"),
+                is_capital= True if mun.get("c") == "S" else False,
                 zones=mun.get("z"),
                 state=state,
-            )
+            ) for mun in item.get("mu")
+        ]
+
+        Mun.objects.bulk_create(
+            municipalities,
+            update_conflicts=True,
+            unique_fields=["code"],
+            update_fields=[
+                "code_i", "name", "is_capital", "zones"
+            ],
+            batch_size=500,
+        )

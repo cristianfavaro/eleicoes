@@ -12,6 +12,8 @@ services:
 
   db: # DB Engine Container
     image: postgres:12
+    env_file:
+      - .env
     restart: always
     volumes:
       - db_vol:/var/lib/postgresql/data # Mount Volume to Postgres Data directory

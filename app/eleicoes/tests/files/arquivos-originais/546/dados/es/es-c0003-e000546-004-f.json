@@ -1,0 +1,282 @@
+{
+    "ele": "546",
+    "cdabr": "ES",
+    "nmabr": "ESPÍRITO SANTO",
+    "t": "1",
+    "f": "O",
+    "s": "N",
+    "dg": "30/09/2022",
+    "hg": "17:28:51",
+    "v": "004",
+    "br": {
+        "nm": "Brasil",
+        "uf": [
+            {
+                "sg": "ES",
+                "nm": "ESPÍRITO SANTO",
+                "s": "9239",
+                "e": "2917714",
+                "tmun": "78"
+            }
+        ]
+    },
+    "carg": {
+        "cd": "3",
+        "nmn": "Governador",
+        "nmm": "Governador",
+        "nmf": "Governadora",
+        "nv": "1",
+        "fed": [
+            {
+                "n": "3",
+                "nm": "Federação PSOL REDE",
+                "sg": "PSOL/REDE",
+                "com": "PSOL/REDE",
+                "npar": [
+                    "18",
+                    "50"
+                ]
+            }
+        ],
+        "agr": [
+            {
+                "n": "80001681437",
+                "nm": "Partido Socialista dos Trabalhadores Unificado",
+                "tp": "I",
+                "com": "PSTU",
+                "par": [
+                    {
+                        "n": "16",
+                        "sg": "PSTU",
+                        "nm": "Partido Socialista dos Trabalhadores Unificado",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "16",
+                                "sqcand": "80001609415",
+                                "nm": "VINICIUS CASSIO CORREA DE SOUSA",
+                                "nmu": "CAPITÃO VINICIUS SOUSA",
+                                "s": "M",
+                                "dt": "20/09/1983",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001609414",
+                                        "nm": "SORAIA BONICEM CHIABAI",
+                                        "nmu": "SORAIA CHIABAI",
+                                        "sgp": "PSTU"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001683267",
+                "nm": "JUNTOS POR UM ESPÍRITO SANTO MAIS FORTE",
+                "tp": "C",
+                "com": "MDB / PP / PROS / PSB / PODE / PC do B / PT / PV / CIDADANIA / PSDB / PDT",
+                "par": [
+                    {
+                        "n": "40",
+                        "sg": "PSB",
+                        "nm": "Partido Socialista Brasileiro",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "40",
+                                "sqcand": "80001649123",
+                                "nm": "JOSÉ RENATO CASAGRANDE",
+                                "nmu": "RENATO CASAGRANDE",
+                                "s": "M",
+                                "dt": "03/12/1960",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001649124",
+                                        "nm": "RICARDO DE REZENDE FERRAÇO",
+                                        "nmu": "RICARDO FERRAÇO",
+                                        "sgp": "PSDB"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001685382",
+                "nm": "Partido Renovador Trabalhista Brasileiro",
+                "tp": "I",
+                "com": "PRTB",
+                "par": [
+                    {
+                        "n": "28",
+                        "sg": "PRTB",
+                        "nm": "Partido Renovador Trabalhista Brasileiro",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "28",
+                                "sqcand": "80001721631",
+                                "nm": "CLAUDIO CESAR MATTOS PAIVA",
+                                "nmu": "CLAUDIO PAIVA",
+                                "s": "M",
+                                "dt": "05/02/1960",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001721630",
+                                        "nm": "MARCO AURELIO DE CARVALHO FERREGUETTI",
+                                        "nmu": "AURELIO FERREGUETTI",
+                                        "sgp": "PRTB"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001685108",
+                "nm": "COMPROMISSO COM A VIDA",
+                "tp": "C",
+                "com": "SOLIDARIEDADE / AVANTE / PROS** / PSOL / REDE",
+                "par": [
+                    {
+                        "n": "18",
+                        "sg": "REDE",
+                        "nm": "Rede Sustentabilidade",
+                        "nfed": "3",
+                        "cand": [
+                            {
+                                "n": "18",
+                                "sqcand": "80001713735",
+                                "nm": "AUDIFAX CHARLES PIMENTEL BARCELOS",
+                                "nmu": "AUDIFAX",
+                                "s": "M",
+                                "dt": "09/05/1964",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001713734",
+                                        "nm": "CARLA ANDRESA NASCIMENTO SILVA",
+                                        "nmu": "TENENTE BOMBEIRA ANDRESA",
+                                        "sgp": "SOLIDARIEDADE"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001685368",
+                "nm": "ESPIRITO SANTO DE TODOS OS CAPIXABAS",
+                "tp": "C",
+                "com": "PTB / PL",
+                "par": [
+                    {
+                        "n": "22",
+                        "sg": "PL",
+                        "nm": "Partido Liberal",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "22",
+                                "sqcand": "80001721262",
+                                "nm": "CARLOS HUMBERTO MANNATO",
+                                "nmu": "MANATO",
+                                "s": "M",
+                                "dt": "07/08/1957",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001731836",
+                                        "nm": "BRUNO LOURENÇO DE SOUZA",
+                                        "nmu": "BRUNO LOURENÇO",
+                                        "sgp": "PTB"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001681319",
+                "nm": "Partido Novo",
+                "tp": "I",
+                "com": "NOVO",
+                "par": [
+                    {
+                        "n": "30",
+                        "sg": "NOVO",
+                        "nm": "Partido Novo",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "30",
+                                "sqcand": "80001606304",
+                                "nm": "ARIDELMO JOSÉ CAMPANHARO TEIXEIRA",
+                                "nmu": "ARIDELMO ",
+                                "s": "M",
+                                "dt": "12/08/1964",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001606303",
+                                        "nm": "CAMILA SANDRINI DOMINGUES",
+                                        "nmu": "CAMILA DOMINGUES",
+                                        "sgp": "NOVO"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "80001685466",
+                "nm": "O ESPÍRITO SANTO MERECE MAIS",
+                "tp": "C",
+                "com": "PSD / PMB / DC",
+                "par": [
+                    {
+                        "n": "55",
+                        "sg": "PSD",
+                        "nm": "Partido Social Democrático",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "55",
+                                "sqcand": "80001723584",
+                                "nm": "GUERINO LUIZ ZANON",
+                                "nmu": "GUERINO ZANON",
+                                "s": "M",
+                                "dt": "29/05/1956",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "80001723585",
+                                        "nm": "MARCUS MENDES DE MAGALHÃES",
+                                        "nmu": "MARCUS MAGALHÃES ",
+                                        "sgp": "PSD"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
