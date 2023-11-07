@@ -9,17 +9,19 @@ def parse_candidates(file):
     data = load(file)
 
     election = data["ele"]
-    local = data["cdabr"]
+    code = data["cdabr"]
     position = data["carg"]["cd"]
 
     cands = []
     for item in data["carg"]["agr"]:
-        cand = item["par"][0]["cand"][0]
-        cand["party"] = item["par"][0]["sg"].strip()
-        cands.append(cand)
+        
+        if len(item["par"][0]["cand"]) > 0:
+            cand = item["par"][0]["cand"][0]
+            cand["par"] = item["par"][0]["sg"].strip()
+            cands.append(cand)
 
     Candidates.objects.update_or_create(
-        local=local,
+        code=code,
         position=position,
         defaults={
             "value": cands,

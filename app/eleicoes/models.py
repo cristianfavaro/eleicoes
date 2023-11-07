@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 # Create your models here.
 
+
 class Election(models.IntegerChoices):    
     ELE_544=544, "Eleição Federal - 2022 (1 turno)"
     DOC_546=546, "Eleição Estadual - 2022 (1 turno)"
@@ -11,8 +12,8 @@ class Election(models.IntegerChoices):
     #Testes
     ELE_9579=9579, "Teste 1"
 
+
 class Mun(models.Model): 
-    
     state = models.CharField("Estado", max_length=5)
     code = models.IntegerField("Código", primary_key=True, validators=[MaxValueValidator(99999)])
     code_i = models.IntegerField("Código IBGE", validators=[MaxValueValidator(99999)])
@@ -25,7 +26,7 @@ class Candidates(models.Model):
     #posso pensar em salvar eles separados e por aquivo.
     election = models.IntegerField(choices=Election.choices)
     ## coloco aqui os identificadores do arquivo do TSE. 
-    local = models.CharField("Local", max_length=200)
+    code = models.CharField("Codigo Local", max_length=200)
     position = models.CharField("Cargo", max_length=100)
 
     value = models.JSONField("Candidatos")
@@ -34,29 +35,28 @@ class Candidates(models.Model):
     #### criar aqui um unique togeter. 
     
 
-class BRData(models.Model):
-    election = models.IntegerField(choices=Election.choices)
-    
-    states = models.JSONField("Estados")
-    muns = models.JSONField("Municípios")
 
-    value = models.JSONField("Resultados")
-    updated_at = models.DateTimeField("Atualizado")
+class CommonInfo(models.Model):
+    ele = models.IntegerField(choices=Election.choices)
+    code = models.CharField("Código", max_length=3)
+ 
+    value = models.JSONField("Resultados", blank=True, null=True, default=dict)
+    brief = models.JSONField("Resumo", blank=True, null=True, default=dict)
+    updated_at = models.DateTimeField("Atualizado", auto_now=True)
 
-
-class StateData(models.Model):
-    election = models.IntegerField(choices=Election.choices)
-    code = models.CharField("Código", unique=True, max_length=3)
-    
-    muns = models.JSONField("Municípios", blank=True, null=True)
-
-    value = models.JSONField("Resultados")
-    updated_at = models.DateTimeField("Atualizado")
+    class Meta:
+        abstract = True
+        unique_together = ('election', 'code')
 
 
-class MunData(models.Model):
-    election = models.IntegerField(choices=Election.choices)
-    code = models.IntegerField("Código", primary_key=True, validators=[MaxValueValidator(99999)])
+class BRData(CommonInfo): 
+    states = models.JSONField("Estados", blank=True, null=True, default=dict)
+    muns = models.JSONField("Municípios", blank=True, null=True, default=dict)
 
-    value = models.JSONField("Resultados")
-    updated_at = models.DateTimeField("Atualizado")
+
+class StateData(CommonInfo):
+    muns = models.JSONField("Municípios", blank=True, null=True)    
+
+
+class MunData(CommonInfo):  
+    pass
