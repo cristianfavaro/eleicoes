@@ -12,12 +12,27 @@ class Parser:
     def __init__(self, file):
         self.data = load(file)
         self.election = self.data["ele"]
+        self.tpabr = self.data["abr"][0]["tpabr"]
         self.code = self.data["abr"][0]["cdabr"]
         self.position = self.data["carper"]
+        self.updated_at = timezone.datetime.strptime(
+            f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
+        )
         
         cands = Candidates.objects.filter(election=self.election, code=self.code, position=self.position).get()
         self.cands = {
             item["n"]: {"nm": item["nm"], "par": item["par"]} for item in cands.value
+        }
+
+    def create_brief(self, data):
+        return {
+            "psa": data["abr"][0]["psa"],   
+            "a": data["abr"][0]["a"],   
+            "pa": data["abr"][0]["pa"],   
+            "vb": data["abr"][0]["vb"],   
+            "pvb": data["abr"][0]["pvb"],  
+            "vn": data["abr"][0]["vn"],   
+            "pvn": data["abr"][0]["pvn"],   
         }
 
     def simplify(self, data):
@@ -52,36 +67,31 @@ class Parser:
 class StateParser(Parser):
     def __init__(self, file):
         super().__init__(file)
- 
-    def parse_state(self, data):
-        brief = {
-            "psa": data["abr"][0]["psa"],   
-            "a": data["abr"][0]["a"],   
-            "pa": data["abr"][0]["pa"],   
-            "vb": data["abr"][0]["vb"],   
-            "pvb": data["abr"][0]["pvb"],  
-            "vn": data["abr"][0]["vn"],   
-            "pvn": data["abr"][0]["pvn"],   
-        }
-        #### preciso por agora o resumo dos dados também. total, brancos, nulos etc.
 
-        value = self.add_cand_names(data)
-
-        stateData, created = StateData.objects.update_or_create(
-            election=self.election,
-            code=self.code, 
-            defaults={
-                "brief": brief,
-                "value": value,
-                "updated_at": timezone.datetime.strptime(
-                    f"{data['dg']} {data['hg']}", '%d/%m/%Y %H:%M:%S'
-                ),
-            }
-        )
-
-        return stateData
     
     def parse(self):
-        stateData = self.parse_state(self.data)
+        
+        brief = self.create_brief(self.data)
+        value = self.add_cand_names(self.data)
+        
+        stateData = StateData.objects.get_or_create(
+            election=self.election,
+            code=self.code, 
+        )
 
-        self.add_resume(stateData)
+        if self.tpabr == "UF":
+            
+            stateData.brief = brief
+            stateData.value = value
+            stateData.updated_at = self.updated_at
+            stateData.save()                   
+
+            self.add_resume(stateData)
+
+        if self.tpabr == "MU":
+            stateData.mun[self.code] = {
+                **self.create_brief(self.data), "c": self.add_cand_names(self.data)
+            }
+
+            stateData.save()
+

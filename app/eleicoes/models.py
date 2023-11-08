@@ -31,13 +31,9 @@ class Candidates(models.Model):
 
     value = models.JSONField("Candidatos")
 
-    
-    #### criar aqui um unique togeter. 
-    
-
 
 class CommonInfo(models.Model):
-    ele = models.IntegerField(choices=Election.choices)
+    election = models.IntegerField(choices=Election.choices)
     code = models.CharField("Código", max_length=3)
  
     value = models.JSONField("Resultados", blank=True, null=True, default=dict)

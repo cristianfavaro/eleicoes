@@ -83,26 +83,20 @@ class TestMunGov(TestCase):
         parse_mun("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/config/mun-e009579-cm.json")
 
         #Parser
-        parser = StateParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-v.json")
+        parser = StateParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df97012-c0003-e009579-v.json")
         parser.parse()
 
         self.c = APIClient()        
 
-
-    #     #Parser
-    #     parser = StateParser()
-    #     parser.parse("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-v.json")
-
-    #     self.c = APIClient()        
-
-    # def test_create_data(self):        
-    #     response = self.c.get('/api/eleicoes/state/df/')          
+    def test_create_data(self):        
+        response = self.c.get('/api/eleicoes/state/df/')          
     
-    #     value = response.json()["value"]
+        data = response.json()
+        print(data)
 
-    #     self.assertEquals(value[0]["nm"], "CANDIDATO 15")
-    #     self.assertEquals(value[0]["vap"], 192240)
-    #     self.assertEquals(value[0]["pvap"], "13,14")
+        # self.assertEquals(value[0]["nm"], "CANDIDATO 15")
+        # self.assertEquals(value[0]["vap"], 192240)
+        # self.assertEquals(value[0]["pvap"], "13,14")
 
     # def test_update(self):              
     #     #mudando o cara
