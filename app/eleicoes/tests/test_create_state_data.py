@@ -86,48 +86,12 @@ class TestMunGov(TestCase):
         parser = StateParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df97012-c0003-e009579-v.json")
         parser.parse()
 
-        self.c = APIClient()        
+        self.c = APIClient()                
 
-    def test_create_data(self):        
-        response = self.c.get('/api/eleicoes/state/df/')          
-    
-        data = response.json()
-        print(data)
 
-        # self.assertEquals(value[0]["nm"], "CANDIDATO 15")
-        # self.assertEquals(value[0]["vap"], 192240)
-        # self.assertEquals(value[0]["pvap"], "13,14")
+    def test_br_mun_update(self):
+        response = self.c.get('/api/eleicoes/')
+        data = response.json()[0]
+        self.assertEquals(data["muns"]["97012"]["c"][0]["vap"], 180079)
 
-    # def test_update(self):              
-    #     #mudando o cara
-    #     stateData = StateData.objects.get(code="DF")
-    #     stateData.value[0]["vap"] = 1000      
-    #     stateData.save()
-
-    #     response = self.c.get('/api/eleicoes/state/df/')          
-    #     value = response.json()["value"]
-
-    #     self.assertEquals(value[0]["vap"], 1000)
-        
-    #     # Rodando de novo para ver se ele muda.
-    #     parser = StateParser()
-    #     parser.parse("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-v.json")
-
-    #     response = self.c.get('/api/eleicoes/state/df/')          
-    #     value = response.json()["value"]
-
-    #     self.assertEquals(value[0]["vap"], 192240)
-
-    # def test_br_states_update(self):
-    #     response = self.c.get('/api/eleicoes/')
-    #     data = response.json()[0]
-    #     self.assertEquals(data["states"]["DF"]["c"][0]["vap"], 192240)
-
-    #     ##Adicionando RN
-    #     parser = StateParser()
-    #     parser.parse("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/rn/rn-c0003-e009579-v.json")
-
-    #     response = self.c.get('/api/eleicoes/')
-    #     data = response.json()[0]
-    #     self.assertEquals(data["states"]["RN"]["c"][0]["vap"], 64247) #vendo o número de votos
 

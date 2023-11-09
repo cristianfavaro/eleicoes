@@ -2,6 +2,7 @@
 from eleicoes.models import Candidates, StateData, BRData
 from .utils import load
 from django.utils import timezone
+import re
 
 dbs = {
     1: BRData,
@@ -18,12 +19,32 @@ class Parser:
         self.updated_at = timezone.datetime.strptime(
             f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
         )
+
+        self.state = self.get_state()
+        self.cands = self.get_candidates()
+
+        self.brief = self.create_brief(self.data)
+        self.value = self.create_value(self.data)
         
-        cands = Candidates.objects.filter(election=self.election, code=self.code, position=self.position).get()
-        self.cands = {
+
+    def get_state(self):
+        if self.tpabr == "MU":
+            regex = r"([a-zA-Z]{2})[-|\d+]{0}"
+            code = str(re.findall(regex, self.data["nadf"], re.MULTILINE)[0]).upper()
+        else: 
+            code = self.code 
+        return code
+    
+    def get_candidates(self):
+        
+        #validação para quando for um dado municipal para eleicao estadual
+    
+        cands = Candidates.objects.filter(election=self.election, code=self.state, position=self.position).get()
+
+        return {
             item["n"]: {"nm": item["nm"], "par": item["par"]} for item in cands.value
         }
-
+ 
     def create_brief(self, data):
         return {
             "psa": data["abr"][0]["psa"],   
@@ -35,10 +56,10 @@ class Parser:
             "pvn": data["abr"][0]["pvn"],   
         }
 
-    def simplify(self, data):
-        return {**data.brief, "c": data.value}
+    def simplify(self):
+        return {**self.brief, "c": self.value}
 
-    def add_cand_names(self, data):
+    def create_value(self, data):
         return [
             { 
                 **item, 
@@ -47,10 +68,9 @@ class Parser:
             } for item in data["abr"][0]["cand"]
         ]   
 
-    def add_resume(self, stateData):
+    def add_br_resume(self, type_data="states"):
 
-        simplified = self.simplify(stateData)
-
+        simplified = self.simplify()
         try:
             brData = BRData.objects.get(election=self.election)
         except BRData.DoesNotExist:
@@ -59,8 +79,12 @@ class Parser:
             )
 
         if self.position == 3:     
-            brData.states[self.code] = simplified
-            brData.save()
+            if type_data == "states":
+                brData.states[self.code] = simplified
+            elif type_data == "muns":
+                brData.muns[self.code] = simplified
+            
+        brData.save()
 
 
 
@@ -68,30 +92,40 @@ class StateParser(Parser):
     def __init__(self, file):
         super().__init__(file)
 
-    
     def parse(self):
         
-        brief = self.create_brief(self.data)
-        value = self.add_cand_names(self.data)
+        element = {
+            "election": self.election,
+            "code": self.code, 
+            "brief": self.brief,
+            "value": self.value,
+        }        
+
+        self.store_data(element)
+
         
-        stateData = StateData.objects.get_or_create(
-            election=self.election,
-            code=self.code, 
+    def store_data(self, element):
+
+        stateData, created= StateData.objects.get_or_create(
+            election=element.pop("election"),
+            code=self.state, 
         )
 
         if self.tpabr == "UF":
             
-            stateData.brief = brief
-            stateData.value = value
+            stateData.brief = element["brief"]
+            stateData.value = element["value"]
             stateData.updated_at = self.updated_at
             stateData.save()                   
 
-            self.add_resume(stateData)
+            self.add_br_resume()
 
         if self.tpabr == "MU":
-            stateData.mun[self.code] = {
-                **self.create_brief(self.data), "c": self.add_cand_names(self.data)
+            stateData.muns[self.code] = {
+                **self.create_brief(self.data), "c": self.create_value(self.data)
             }
 
             stateData.save()
+
+            self.add_br_resume("muns")
 

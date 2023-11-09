@@ -34,7 +34,7 @@ class Candidates(models.Model):
 
 class CommonInfo(models.Model):
     election = models.IntegerField(choices=Election.choices)
-    code = models.CharField("Código", max_length=3)
+    code = models.CharField("Código", max_length=6)
  
     value = models.JSONField("Resultados", blank=True, null=True, default=dict)
     brief = models.JSONField("Resumo", blank=True, null=True, default=dict)
@@ -51,7 +51,7 @@ class BRData(CommonInfo):
 
 
 class StateData(CommonInfo):
-    muns = models.JSONField("Municípios", blank=True, null=True)    
+    muns = models.JSONField("Municípios", blank=True, null=True, default=dict)
 
 
 class MunData(CommonInfo):  
