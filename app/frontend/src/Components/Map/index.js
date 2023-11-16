@@ -150,9 +150,9 @@ function Map() {
         .attr('transform', 'translate(0,0)')
     }
 
-    return () => {
-      container.current.innerHTML = "";
-    };
+    // return () => {
+    //   container.current.innerHTML = "";
+    // };
   }, []);
 
   return (
