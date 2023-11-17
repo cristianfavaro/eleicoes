@@ -29,7 +29,7 @@ const Cand = () => {
   </div>
 }
 
-const PopOver = ({place="Vitória", show}) => {
+const PopOver = ({data, show}) => {
 
   const popOverRef = useRef(null);
   const mousePosition = useMousePosition();
@@ -44,7 +44,7 @@ const PopOver = ({place="Vitória", show}) => {
   }, [mousePosition])
 
   return <Container show={show} ref={popOverRef}>
-    <div className="header">{place}</div>
+    <div className="header">{data && data.properties.cd}</div>
     
     <div>bar</div>
 

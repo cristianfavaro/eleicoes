@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator } from "d3";
-import PopOver from "./PopOver";
+import PopOver from "../PopOver";
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
@@ -29,12 +29,10 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
   const [selected, setSelected] = useState(null);
-  const [coordinates, setCoordinates] = useState(null);
-
+  
   // will be called initially and on every data change
   useEffect(() => {
     const svg = select(svgRef.current);
-
     // use resized dimensions
     // but fall back to getBoundingClientRect, if no dimensions yet.
     const { width, height } = wrapperRef.current.getBoundingClientRect();
@@ -50,10 +48,8 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(event, feature) {
       setSelected(feature);  
-      setCoordinates(event.target.getBoundingClientRect())
     }
-
-    // render each country
+    // render each place
     svg
       .selectAll(".country")
       .data(data.features)
@@ -66,27 +62,9 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
 
   }, [data, colorScale]);
 
-  useEffect(()=>{
-    const svg = select(svgRef.current);
-    // render text
-    svg
-      .selectAll(".label")
-      .data([selected])
-      .join("text")
-      .attr("class", "label")
-      .text(
-        feature =>
-          feature &&
-          feature.properties.cd 
-      )
-      .attr("x", () => coordinates && coordinates["x"])
-      .attr("y", () => coordinates && coordinates["y"]);
-
-  }, [data, selected, coordinates])
-
   return <Container ref={wrapperRef}>
       <svg ref={svgRef}></svg>
-      <PopOver show={true} />
+      <PopOver data={selected} show={true} />
     </Container>  
 }
 
