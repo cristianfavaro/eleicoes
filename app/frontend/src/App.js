@@ -21,7 +21,6 @@ const Map3 = () => {
   const colors = ["#B9EDDD", "#87CBB9", "#569DAA", "#577D86"];
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-
   // json("https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=image/svg+xml&qualidade=minima&intrarregiao=UF").then(
   //   response => setData(response)
   // )
