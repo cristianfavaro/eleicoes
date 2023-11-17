@@ -1,49 +1,28 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator } from "d3";
-
+import PopOver from "./PopOver";
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
  */
 
-import styled from 'styled-components';
-
+import styled from "styled-components";
 const Container = styled.div`
-  svg{
-    z-index: -1;
+  width: 500px;
+  display: flex;
+  svg {
+    display: block;
+    width: 100%;
+    height: 300px;
   }
-  span{
-      background:#F8F8F8;
-      border: 5px solid #DFDFDF;
-      color: #717171;
-      font-size: 13px;
-      height: 30px;
-      letter-spacing: 1px;
-      line-height: 30px;
-      position: relative;
-      text-align: center;
-      text-transform: uppercase;
-      top: -80px;
-      left:-30px;
-      display:none;
-      padding:0 20px;   
-  }  
-  span:after{
-    content:'';
-    position:absolute;
-    bottom:-10px; 
-    width:10px;
-    height:10px;
-    border-bottom:5px solid #dfdfdf;
-    border-right:5px solid #dfdfdf;
-    background:#f8f8f8;
-    left:50%;
-    margin-left:-10px;
-    -moz-transform:rotate(45deg);
-    -webkit-transform:rotate(45deg);
-    transform:rotate(45deg);
+  
+  svg .country:hover {
+    stroke: black;
+    stroke-width: 1px;
+    cursor: pointer;
   }
 `
+
 
 function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
   const svgRef = useRef();
@@ -105,11 +84,10 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
 
   }, [data, selected, coordinates])
 
-  return (
-    <Container ref={wrapperRef} style={{ marginBottom: "2rem" }}>
+  return <Container ref={wrapperRef}>
       <svg ref={svgRef}></svg>
-    </Container>
-  );
+      <PopOver show={true} />
+    </Container>  
 }
 
 export default GeoChart;
