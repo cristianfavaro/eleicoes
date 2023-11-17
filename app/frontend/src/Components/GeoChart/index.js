@@ -1,30 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator } from "d3";
 import PopOver from "../PopOver";
+import { Container } from "./styles";
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
  */
 
-import styled from "styled-components";
-const Container = styled.div`
-  width: 500px;
-  display: flex;
-  svg {
-    display: block;
-    width: 100%;
-    height: 300px;
-  }
-  
-  svg .country:hover {
-    stroke: black;
-    stroke-width: 1px;
-    cursor: pointer;
-  }
-`
 
-
-function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
+function GeoChart({ data, colorScale}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
@@ -46,15 +30,21 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
     const pathGenerator = geoPath().projection(projec);
 
     // Three function that change the tooltip when user hover / move / leave a cell
-    var mouseover = function(event, feature) {
-      setSelected(feature);  
+    var onMouseOver = function(event, feature){
+      setSelected(feature)
     }
+
+    var onMouseOut = function(e){
+      setSelected(null)
+    } 
+
     // render each place
     svg
       .selectAll(".country")
       .data(data.features)
       .join("path")
-      .on("mouseover", mouseover)
+      .on("mouseover", onMouseOver)
+      .on("mouseout", onMouseOut)
       .attr("class", "country")
       .transition()
       .attr("fill", feature => colorScale(feature))
@@ -64,7 +54,7 @@ function GeoChart({ data, onClick, colorScale, onMouseOver=(d,i)=>{}}) {
 
   return <Container ref={wrapperRef}>
       <svg ref={svgRef}></svg>
-      <PopOver data={selected} show={true} />
+      <PopOver data={selected} show={selected} />
     </Container>  
 }
 
