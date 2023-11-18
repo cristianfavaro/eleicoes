@@ -17,3 +17,8 @@ class Test(TestCase):
     def test_create_rn(self):
         parse_candidates("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/rn/rn-c0003-e009579-083-f.json")
         self.assertEquals(Candidates.objects.count(), 2)
+
+    def test_create_br(self):
+        parse_candidates("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-001-f.json")
+        cands = Candidates.objects.filter(carper=1)[0]
+        self.assertEquals(len(cands.values), 11)

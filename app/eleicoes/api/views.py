@@ -3,7 +3,13 @@ from .serializers import StateDataSerializer, MunDataSerializer, BRDataSerialize
 from eleicoes.models import StateData, MunData, BRData
 from django.http import Http404
 
-class StateDataViewSet(viewsets.ReadOnlyModelViewSet):
+class BaseViewSet(viewsets.ReadOnlyModelViewSet):
+    
+    def get_queryset(self):
+        return self.queryset.filter(ele=self.kwargs['ele_id'])
+
+
+class StateDataViewSet(BaseViewSet):
     serializer_class = StateDataSerializer
     queryset = StateData.objects.all()
 
@@ -20,6 +26,6 @@ class MunDataViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = MunData.objects.all()
 
 
-class BRDataViewSet(viewsets.ReadOnlyModelViewSet):
+class BRDataViewSet(BaseViewSet):
     serializer_class = BRDataSerializer
     queryset = BRData.objects.all()
