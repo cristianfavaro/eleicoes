@@ -12,7 +12,7 @@ class StateDataViewSet(viewsets.ReadOnlyModelViewSet):
         pk = self.kwargs['pk']
         if pk.isdigit():
             return super(StateDataViewSet, self).get_object()
-        return self.get_queryset().get(code=pk.upper())
+        return self.get_queryset().get(cdabr=pk.upper())
                
         
 class MunDataViewSet(viewsets.ReadOnlyModelViewSet):

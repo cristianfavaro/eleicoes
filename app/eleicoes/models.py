@@ -18,14 +18,13 @@ class Carg(models.IntegerChoices):
     CARG_3=3, "Governador"
     
 
-
 class Mun(models.Model): 
-    state = models.CharField("Estado", max_length=5)
-    code = models.IntegerField("Código", primary_key=True, validators=[MaxValueValidator(99999)])
-    code_i = models.IntegerField("Código IBGE", validators=[MaxValueValidator(99999)])
-    name = models.CharField("Nome Município", max_length=300)
-    is_capital = models.BooleanField("Capital")
-    zones = models.JSONField("Zonas Eleitorais")    
+    uf = models.CharField("Estado", max_length=5)
+    cd = models.IntegerField("Código", primary_key=True, validators=[MaxValueValidator(99999)])
+    cdi = models.IntegerField("Código IBGE", validators=[MaxValueValidator(99999)])
+    nm = models.CharField("Nome Município", max_length=300)
+    c = models.BooleanField("Capital")
+    z = models.JSONField("Zonas Eleitorais")    
 
 
 class Candidates(models.Model): 

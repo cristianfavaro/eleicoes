@@ -1,0 +1,525 @@
+{
+    "ele": "544",
+    "cdabr": "BR",
+    "nmabr": "BRASIL",
+    "t": "1",
+    "f": "O",
+    "s": "N",
+    "dg": "14/09/2022",
+    "hg": "16:51:34",
+    "v": "001",
+    "br": {
+        "nm": "Brasil",
+        "s": "461370",
+        "e": "153152669"
+    },
+    "carg": {
+        "cd": "1",
+        "nmn": "Presidente",
+        "nmm": "Presidente",
+        "nmf": "Presidente",
+        "nv": "1",
+        "fed": [
+            {
+                "n": "2",
+                "nm": "Federação Brasil da Esperança - FE BRASIL",
+                "sg": "PT/PC do B/PV",
+                "com": "PT/PC do B/PV",
+                "npar": [
+                    "13",
+                    "43",
+                    "65"
+                ]
+            }
+        ],
+        "agr": [
+            {
+                "n": "280001681181",
+                "nm": "Unidade Popular",
+                "tp": "I",
+                "com": "UP",
+                "par": [
+                    {
+                        "n": "80",
+                        "sg": "UP",
+                        "nm": "Unidade Popular",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "80",
+                                "sqcand": "280001602702",
+                                "nm": "LEONARDO PÉRICLES VIEIRA ROQUE",
+                                "nmu": "LÉO PÉRICLES",
+                                "s": "M",
+                                "dt": "26/08/1981",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001602703",
+                                        "nm": "SAMARA MARTINS DA SILVA",
+                                        "nmu": "SAMARA MARTINS",
+                                        "sgp": "UP"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001684145",
+                "nm": "Democracia Cristã",
+                "tp": "I",
+                "com": "DC",
+                "par": [
+                    {
+                        "n": "27",
+                        "sg": "DC",
+                        "nm": "Democracia Cristã",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "27",
+                                "sqcand": "280001677435",
+                                "nm": "JOSE MARIA EYMAEL",
+                                "nmu": "CONSTITUINTE EYMAEL",
+                                "s": "M",
+                                "dt": "02/11/1939",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001677436",
+                                        "nm": "JOAO BARBOSA BRAVO",
+                                        "nmu": "PROFESSOR BRAVO",
+                                        "sgp": "DC"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001682069",
+                "nm": "Pelo bem do Brasil",
+                "tp": "C",
+                "com": "PP / REPUBLICANOS / PL",
+                "par": [
+                    {
+                        "n": "10",
+                        "sg": "REPUBLICANOS",
+                        "nm": "REPUBLICANOS",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "22",
+                        "sg": "PL",
+                        "nm": "Partido Liberal",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "22",
+                                "sqcand": "280001618036",
+                                "nm": "JAIR MESSIAS BOLSONARO",
+                                "nmu": "JAIR BOLSONARO",
+                                "s": "M",
+                                "dt": "21/03/1955",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001618037",
+                                        "nm": "WALTER SOUZA BRAGA NETTO",
+                                        "nmu": "BRAGA NETTO",
+                                        "sgp": "PL"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "n": "11",
+                        "sg": "PP",
+                        "nm": "PROGRESSISTAS",
+                        "nfed": "",
+                        "cand": []
+                    }
+                ]
+            },
+            {
+                "n": "280001681612",
+                "nm": "Partido Democrático Trabalhista",
+                "tp": "I",
+                "com": "PDT",
+                "par": [
+                    {
+                        "n": "12",
+                        "sg": "PDT",
+                        "nm": "Partido Democrático Trabalhista",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "12",
+                                "sqcand": "280001612393",
+                                "nm": "CIRO FERREIRA GOMES",
+                                "nmu": "CIRO GOMES",
+                                "s": "M",
+                                "dt": "06/11/1957",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001612392",
+                                        "nm": "ANA PAULA ANDRADE MATOS MOREIRA",
+                                        "nmu": "ANA PAULA MATOS",
+                                        "sgp": "PDT"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001681210",
+                "nm": "Partido Novo",
+                "tp": "I",
+                "com": "NOVO",
+                "par": [
+                    {
+                        "n": "30",
+                        "sg": "NOVO",
+                        "nm": "Partido Novo",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "30",
+                                "sqcand": "280001603612",
+                                "nm": "LUIZ FELIPE CHAVES D&apos;AVILA",
+                                "nmu": "FELIPE D&apos;AVILA",
+                                "s": "M",
+                                "dt": "24/08/1963",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001603611",
+                                        "nm": "TIAGO LIMA MITRAUD DE CASTRO LEITE",
+                                        "nmu": "TIAGO MITRAUD",
+                                        "sgp": "NOVO"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001683105",
+                "nm": "UNIÃO BRASIL",
+                "tp": "I",
+                "com": "UNIÃO",
+                "par": [
+                    {
+                        "n": "44",
+                        "sg": "UNIÃO",
+                        "nm": "UNIÃO BRASIL",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "44",
+                                "sqcand": "280001644128",
+                                "nm": "SORAYA VIEIRA THRONICKE",
+                                "nmu": "SORAYA THRONICKE",
+                                "s": "F",
+                                "dt": "01/06/1973",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001644129",
+                                        "nm": "MARCOS CINTRA CAVALCANTI DE ALBUQUERQUE",
+                                        "nmu": "MARCOS CINTRA",
+                                        "sgp": "UNIÃO"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001681359",
+                "nm": "COLIGAÇÃO BRASIL DA ESPERANÇA",
+                "tp": "C",
+                "com": "PC do B / PT / PV / SOLIDARIEDADE / PSOL / REDE / PSB / AGIR / AVANTE / PROS",
+                "par": [
+                    {
+                        "n": "13",
+                        "sg": "PT",
+                        "nm": "Partido dos Trabalhadores",
+                        "nfed": "2",
+                        "cand": [
+                            {
+                                "n": "13",
+                                "sqcand": "280001607829",
+                                "nm": "LUIZ INÁCIO LULA DA SILVA",
+                                "nmu": "LULA",
+                                "s": "M",
+                                "dt": "06/10/1945",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001607830",
+                                        "nm": "GERALDO JOSÉ RODRIGUES ALCKMIN FILHO",
+                                        "nmu": "GERALDO ALCKMIN",
+                                        "sgp": "PSB"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "n": "43",
+                        "sg": "PV",
+                        "nm": "Partido Verde",
+                        "nfed": "2",
+                        "cand": []
+                    },
+                    {
+                        "n": "50",
+                        "sg": "PSOL",
+                        "nm": "Partido Socialismo e Liberdade",
+                        "nfed": "3",
+                        "cand": []
+                    },
+                    {
+                        "n": "70",
+                        "sg": "AVANTE",
+                        "nm": "AVANTE",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "90",
+                        "sg": "PROS",
+                        "nm": "Partido Republicano da Ordem Social",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "36",
+                        "sg": "AGIR",
+                        "nm": "AGIR",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "65",
+                        "sg": "PC do B",
+                        "nm": "Partido Comunista do Brasil",
+                        "nfed": "2",
+                        "cand": []
+                    },
+                    {
+                        "n": "18",
+                        "sg": "REDE",
+                        "nm": "Rede Sustentabilidade",
+                        "nfed": "3",
+                        "cand": []
+                    },
+                    {
+                        "n": "40",
+                        "sg": "PSB",
+                        "nm": "Partido Socialista Brasileiro",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "77",
+                        "sg": "SOLIDARIEDADE",
+                        "nm": "Solidariedade",
+                        "nfed": "",
+                        "cand": []
+                    }
+                ]
+            },
+            {
+                "n": "280001683500",
+                "nm": "Partido Trabalhista Brasileiro",
+                "tp": "I",
+                "com": "PTB",
+                "par": [
+                    {
+                        "n": "14",
+                        "sg": "PTB",
+                        "nm": "Partido Trabalhista Brasileiro",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "14",
+                                "sqcand": "280001734029",
+                                "nm": "KELMON LUIS DA SILVA SOUZA",
+                                "nmu": "PADRE KELMON",
+                                "s": "M",
+                                "dt": "21/10/1976",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001735149",
+                                        "nm": "LUIZ CLAUDIO MEDEIROS DA FONSECA GAMONAL",
+                                        "nmu": "PASTOR GAMONAL",
+                                        "sgp": "PTB"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001681361",
+                "nm": "Coligação Brasil para Todos",
+                "tp": "C",
+                "com": "MDB / CIDADANIA / PSDB / PODE",
+                "par": [
+                    {
+                        "n": "15",
+                        "sg": "MDB",
+                        "nm": "Movimento Democrático Brasileiro",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "15",
+                                "sqcand": "280001607833",
+                                "nm": "SIMONE NASSAR TEBET",
+                                "nmu": "SIMONE TEBET",
+                                "s": "F",
+                                "dt": "22/02/1970",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001607834",
+                                        "nm": "MARA CRISTINA GABRILLI",
+                                        "nmu": "MARA GABRILLI",
+                                        "sgp": "PSDB"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "n": "19",
+                        "sg": "PODE",
+                        "nm": "Podemos",
+                        "nfed": "",
+                        "cand": []
+                    },
+                    {
+                        "n": "23",
+                        "sg": "CIDADANIA",
+                        "nm": "Cidadania",
+                        "nfed": "1",
+                        "cand": []
+                    },
+                    {
+                        "n": "45",
+                        "sg": "PSDB",
+                        "nm": "Partido da Social Democracia Brasileira",
+                        "nfed": "1",
+                        "cand": []
+                    }
+                ]
+            },
+            {
+                "n": "280001681360",
+                "nm": "Partido Socialista dos Trabalhadores Unificado",
+                "tp": "I",
+                "com": "PSTU",
+                "par": [
+                    {
+                        "n": "16",
+                        "sg": "PSTU",
+                        "nm": "Partido Socialista dos Trabalhadores Unificado",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "16",
+                                "sqcand": "280001607831",
+                                "nm": "VERA LUCIA PEREIRA DA SILVA SALGADO",
+                                "nmu": "VERA",
+                                "s": "F",
+                                "dt": "12/09/1967",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001607832",
+                                        "nm": "RAQUEL AGUIAR SANTOS",
+                                        "nmu": "RAQUEL TREMEMBÉ",
+                                        "sgp": "PSTU"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "n": "280001685559",
+                "nm": "Partido Republicano da Ordem Social",
+                "tp": "I",
+                "com": "PROS**",
+                "par": [
+                    {
+                        "n": "90",
+                        "sg": "PROS",
+                        "nm": "Partido Republicano da Ordem Social",
+                        "nfed": "",
+                        "cand": []
+                    }
+                ]
+            },
+            {
+                "n": "280001681036",
+                "nm": "Partido Comunista Brasileiro",
+                "tp": "I",
+                "com": "PCB",
+                "par": [
+                    {
+                        "n": "21",
+                        "sg": "PCB",
+                        "nm": "Partido Comunista Brasileiro",
+                        "nfed": "",
+                        "cand": [
+                            {
+                                "n": "21",
+                                "sqcand": "280001600167",
+                                "nm": "SOFIA PADUA MANZANO",
+                                "nmu": "SOFIA MANZANO",
+                                "s": "F",
+                                "dt": "19/05/1971",
+                                "dvt": "Válido",
+                                "vs": [
+                                    {
+                                        "tp": "V",
+                                        "sqcand": "280001600166",
+                                        "nm": "ANTONIO ALVES DA SILVA JUNIOR",
+                                        "nmu": "ANTONIO ALVES",
+                                        "sgp": "PCB"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -8,7 +8,7 @@ export const Container = styled.div`
     height: 300px;
   }
   
-  svg .country:hover {
+  svg .place:hover {
     stroke: black;
     stroke-width: 1px;
     cursor: pointer;

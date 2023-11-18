@@ -40,12 +40,12 @@ function GeoChart({ data, colorScale}) {
 
     // render each place
     svg
-      .selectAll(".country")
+      .selectAll(".place")
       .data(data.features)
       .join("path")
       .on("mouseover", onMouseOver)
       .on("mouseout", onMouseOut)
-      .attr("class", "country")
+      .attr("class", "place")
       .transition()
       .attr("fill", feature => colorScale(feature))
       .attr("d", feature => pathGenerator(feature))
