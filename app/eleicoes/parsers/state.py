@@ -12,9 +12,9 @@ dbs = {
 class Parser:
     def __init__(self, file):
         self.data = load(file)
-        self.election = self.data["ele"]
+        self.ele = self.data["ele"]
         self.tpabr = self.data["abr"][0]["tpabr"]
-        self.code = self.data["abr"][0]["cdabr"]
+        self.cdabr = self.data["abr"][0]["cdabr"]
         self.position = self.data["carper"]
         self.updated_at = timezone.datetime.strptime(
             f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
@@ -30,16 +30,16 @@ class Parser:
     def get_state(self):
         if self.tpabr == "MU":
             regex = r"([a-zA-Z]{2})[-|\d+]{0}"
-            code = str(re.findall(regex, self.data["nadf"], re.MULTILINE)[0]).upper()
+            cdabr = str(re.findall(regex, self.data["nadf"], re.MULTILINE)[0]).upper()
         else: 
-            code = self.code 
-        return code
+            cdabr = self.cdabr 
+        return cdabr
     
     def get_candidates(self):
         
         #validação para quando for um dado municipal para eleicao estadual
     
-        cands = Candidates.objects.filter(election=self.election, code=self.state, position=self.position).get()
+        cands = Candidates.objects.filter(ele=self.ele, cdabr=self.state, position=self.position).get()
 
         return {
             item["n"]: {"nm": item["nm"], "par": item["par"]} for item in cands.value
@@ -72,17 +72,17 @@ class Parser:
 
         simplified = self.simplify()
         try:
-            brData = BRData.objects.get(election=self.election)
+            brData = BRData.objects.get(ele=self.ele)
         except BRData.DoesNotExist:
             brData = BRData.objects.create(
-                election=self.election,
+                ele=self.ele,
             )
 
         if self.position == 3:     
             if type_data == "states":
-                brData.states[self.code] = simplified
+                brData.states[self.cdabr] = simplified
             elif type_data == "muns":
-                brData.muns[self.code] = simplified
+                brData.muns[self.cdabr] = simplified
             
         brData.save()
 
@@ -95,8 +95,8 @@ class StateParser(Parser):
     def parse(self):
         
         element = {
-            "election": self.election,
-            "code": self.code, 
+            "ele": self.ele,
+            "cdabr": self.cdabr, 
             "brief": self.brief,
             "value": self.value,
         }        
@@ -107,8 +107,8 @@ class StateParser(Parser):
     def store_data(self, element):
 
         stateData, created= StateData.objects.get_or_create(
-            election=element.pop("election"),
-            code=self.state, 
+            ele=element.pop("ele"),
+            cdabr=self.state, 
         )
 
         if self.tpabr == "UF":
@@ -121,7 +121,7 @@ class StateParser(Parser):
             self.add_br_resume()
 
         if self.tpabr == "MU":
-            stateData.muns[self.code] = {
+            stateData.muns[self.cdabr] = {
                 **self.create_brief(self.data), "c": self.create_value(self.data)
             }
 

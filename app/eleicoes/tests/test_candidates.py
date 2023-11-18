@@ -10,8 +10,8 @@ class Test(TestCase):
 
     def test_parse_candidates(self):              
         candidates = Candidates.objects.get(cdabr="DF")
-        self.assertEquals(candidates.value[0]["par"], "P12")
-        self.assertEquals(candidates.value[0]["sqcand"], 70007787023)
+        self.assertEquals(candidates.values[0]["par"], "P12")
+        self.assertEquals(candidates.values[0]["sqcand"], 70007787023)
         self.assertEquals(Candidates.objects.count(), 1)
 
     def test_create_rn(self):

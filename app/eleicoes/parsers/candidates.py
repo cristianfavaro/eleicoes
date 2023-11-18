@@ -8,9 +8,9 @@ def get_newest_file(index):
 def parse_candidates(file):
     data = load(file)
 
-    election = data["ele"]
-    code = data["cdabr"]
-    position = data["carg"]["cd"]
+    ele = data["ele"]
+    cdabr = data["cdabr"]
+    carper = data["carg"]["cd"]
 
     cands = []
     for item in data["carg"]["agr"]:
@@ -21,10 +21,10 @@ def parse_candidates(file):
             cands.append(cand)
 
     Candidates.objects.update_or_create(
-        code=code,
-        position=position,
+        cdabr=cdabr,
+        carper=carper,
         defaults={
-            "value": cands,
-            "election": election,
+            "values": cands,
+            "ele": ele,
         }
     )

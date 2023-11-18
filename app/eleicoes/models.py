@@ -32,16 +32,16 @@ class Candidates(models.Model):
     ele = models.IntegerField("Eleição", choices=Election.choices)
     ## coloco aqui os identificadores do arquivo do TSE. 
     cdabr = models.CharField("Codigo Local", max_length=200)
-    carg = models.CharField("Cargo", max_length=100)
+    carper = models.CharField("Cargo", max_length=100)
 
-    value = models.JSONField("Candidatos")
+    values = models.JSONField("Candidatos")
 
 
 class CommonInfo(models.Model):
     ele = models.IntegerField(choices=Election.choices)
     cdabr = models.CharField("Código", max_length=6)
  
-    value = models.JSONField("Resultados", blank=True, null=True, default=dict)
+    values = models.JSONField("Resultados", blank=True, null=True, default=dict)
     brief = models.JSONField("Resumo", blank=True, null=True, default=dict)
     updated_at = models.DateTimeField("Atualizado", auto_now=True)
 
