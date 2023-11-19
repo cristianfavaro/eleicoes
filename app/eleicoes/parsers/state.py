@@ -23,10 +23,9 @@ class Parser:
 
         self.state = self.get_state()
         self.cands = self.get_candidates()
-
+        
         self.brief = self.create_brief(self.data)
         self.values = self.create_values(self.data)
-        
 
     def get_state(self):
         if self.tpabr == "MU":
@@ -35,13 +34,13 @@ class Parser:
         else: 
             cdabr = self.cdabr 
         return cdabr
-    
+
     def get_candidates(self):
         
         #validação para quando for um dado municipal para eleicao estadual
     
-        cands = Candidates.objects.filter(ele=self.ele, cdabr=self.state, carper=self.carper).get()
-
+        cands = Candidates.objects.filter(ele=self.ele, cdabr=self.cdabr, carper=self.carper).get()      
+    
         return {
             int(item["n"]): {"nm": item["nm"], "par": item["par"]} for item in cands.values
         }
@@ -61,6 +60,7 @@ class Parser:
         return {**self.brief, "c": self.values}
 
     def create_values(self, data):
+
         return [
             { 
                 **item, 

@@ -14,10 +14,18 @@ class Test(TestCase):
         
         parse_candidates("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-001-f.json")
 
-        #Parser
+        
+        #Parser - Dados Brasil
         parser = GeneralParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-v.json")
         parser.parse()
-    
+
+        ### Dados Presidente em estados
+        GeneralParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/es/es-c0001-e000544-v.json").parse()
+        # GeneralParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/mg/mg-c0001-e000544-v.json").parse()
+        # GeneralParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/rj/rj-c0001-e000544-v.json").parse()
+        # GeneralParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/sp/sp-c0001-e000544-v.json").parse()
+
+
         self.c = APIClient()        
 
     def test_create_data(self):        
@@ -28,7 +36,6 @@ class Test(TestCase):
         self.assertEquals(data["values"][0]["vap"], '57259504')
         # #brief
         self.assertEquals(data["brief"]["vb"], '1964779')
-        
         
     def test_update(self):              
         #mudando o cara
