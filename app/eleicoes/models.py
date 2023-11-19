@@ -40,6 +40,7 @@ class Candidates(models.Model):
 class CommonInfo(models.Model):
     ele = models.IntegerField(choices=Election.choices)
     cdabr = models.CharField("Código", max_length=6)
+    # carper = models.CharField("Cargo", max_length=100)
  
     values = models.JSONField("Resultados", blank=True, null=True, default=dict)
     brief = models.JSONField("Resumo", blank=True, null=True, default=dict)

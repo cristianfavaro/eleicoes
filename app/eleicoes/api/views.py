@@ -25,6 +25,10 @@ class MunDataViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MunDataSerializer
     queryset = MunData.objects.all()
 
+    def get_object(self):
+        #Pego o State tanto pelo número na base quanto sigla. 
+        pk = self.kwargs['pk']
+        return self.get_queryset().get(cdabr=pk)    
 
 class BRDataViewSet(BaseViewSet):
     serializer_class = BRDataSerializer
