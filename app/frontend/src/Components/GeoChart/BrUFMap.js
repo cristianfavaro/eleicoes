@@ -4,23 +4,38 @@ import GeoChart from './index';
 // import countyData from "./Components/Map/data/counties.json";
 // import stateData from "./Components/Map/data/states.json";
 
-import geo from "./maps/br-estados.json";
+// import geo from "./maps/br-estados.json";
 
 function BrUFMap() {
   const colors = ["#B9EDDD", "#87CBB9", "#569DAA", "#577D86"];
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  const colorScale = () => {
-    return colors[Math.floor(Math.random() * 4)]
+  const colorScale = (feature) => {
+    return feature.properties.data ? colors[Math.floor(Math.random() * 4)] : "white"
   };  
  
+  function joinFunc(features, data){
+    return features.map(
+      feature => {
+        return {
+          ...feature,
+          properties: {
+            ...feature["properties"], 
+            data: data[0].states[feature["properties"]["cd"]]
+          }
+        }
+      }
+    )
+  }
+
+
   return <div>
       <GeoChart 
-          path="/api/eleicoes/544/br/"
-          geo={geo} 
+          urlData="/api/eleicoes/544/br/"
+          urlMap="http://localhost:8080/br-estados.json" 
           colorScale={colorScale}
-          onMouseOver={(d,i)=>{console.log(d, i)}}
           selected={selectedCountry}
+          joinFunc={joinFunc}
           onClick={ (event, feature) =>setSelectedCountry(selectedCountry === feature ? null : feature)} 
         />    
     </div>
