@@ -16,7 +16,7 @@ function BrUFMap() {
  
   return <div>
       <GeoChart 
-          data=""
+          path="/api/eleicoes/544/br/"
           geo={geo} 
           colorScale={colorScale}
           onMouseOver={(d,i)=>{console.log(d, i)}}

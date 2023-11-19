@@ -10,7 +10,7 @@ export const Container = styled.div`
   
   svg .place:hover {
     stroke: black;
-    stroke-width: 1px;
+    stroke-width: 2px;
     cursor: pointer;
   }
 `;
