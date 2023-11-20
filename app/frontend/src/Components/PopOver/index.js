@@ -1,10 +1,8 @@
 import React, {useEffect, useRef} from 'react';
-import styled from 'styled-components';
 import useMousePosition from '../../hooks/useMousePosition';
 import {kFormatter} from '../../utils/kFormatter';
 import { colorPicker } from '../../utils/colorPicker';
 import { Container, BarContainer } from './styles';
-
 
 const Cand = ({cand}) => {
   const {e, n, nmu, p, pvap, seq, st, vap} = cand; 
@@ -13,7 +11,6 @@ const Cand = ({cand}) => {
     <small>{kFormatter(vap)} ({pvap}%)</small>
   </div>
 }
-
 
 const Bar =  React.memo(({cands}) => {
 
@@ -35,7 +32,7 @@ const Bar =  React.memo(({cands}) => {
 })
 
 const PopOver = ({properties}) => {
-  const {a, c, pa, vb, vn} = properties.data;
+  // const {a, c, pa, vb, vn} = properties.data;
   const mousePosition = useMousePosition();
 
   useEffect(()=>{
@@ -47,17 +44,26 @@ const PopOver = ({properties}) => {
   
   const popOverRef = useRef(null);
 
-  return <Container ref={popOverRef}>
-
-    <div className="header"><b>{properties.cd}</b></div>
-    <Bar cands={c}/>
-    <div className="cands">
-      {
-        c.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
-      }
-    </div>
+  return <Container show={properties.cd} ref={popOverRef}>
+    
+    {
+      properties.data.c && <React.Fragment>
+          <div className="header"><b>{properties.cd}</b></div>
+          <Bar cands={properties.data.c}/>
+          <div className="cands">
+            {
+              properties.data.c && properties.data.c.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
+            }
+          </div>
+      </React.Fragment>
+    }
+    
     
   </Container>
+}
+
+PopOver.defaultProps = {
+  properties: {data: {}},
 }
 
 export default PopOver

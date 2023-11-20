@@ -69,9 +69,7 @@ function GeoChart({ urlData, urlMap, colorScale, joinFunc}) {
 
   return <Container ref={wrapperRef}>
       <svg ref={svgRef}></svg>
-      {
-        selected && <PopOver properties={selected.properties} />
-      }
+      <PopOver properties={selected && selected.properties || undefined} />
       
     </Container>  
 }
