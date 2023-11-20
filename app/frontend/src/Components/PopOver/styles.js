@@ -9,7 +9,13 @@ export const BarContainer = styled.div`
   }
 `
 
-export const Container = styled.div`
+export const Container = styled.div.attrs(
+    ({x, y})=>({
+        style:{
+            transform: `translateY(${y}px) translateX(${x}px)`,
+        }
+    })
+)`
   border: 1px solid darkgray;
   background-color: white; 
   width: 200px;

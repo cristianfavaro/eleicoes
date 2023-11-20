@@ -32,22 +32,11 @@ const Bar =  React.memo(({cands}) => {
 })
 
 const PopOver = ({properties}) => {
-  // const {a, c, pa, vb, vn} = properties.data;
   const mousePosition = useMousePosition();
-
-  useEffect(()=>{
-    if(popOverRef.current){
-      popOverRef.current.style.transform = `translateY(${+mousePosition.y + 10}px)`;
-      popOverRef.current.style.transform += `translateX(${+mousePosition.x + 10}px)`;            
-    };
-  }, [mousePosition])
-  
-  const popOverRef = useRef(null);
-
-  return <Container show={properties.cd} ref={popOverRef}>
-    
+  return <Container show={properties.cd} x={mousePosition.x} y={mousePosition.y}>  
+    {/* valido para ver se o properties nao ta vazio */}
     {
-      properties.data.c && <React.Fragment>
+      properties.cd && <React.Fragment> 
           <div className="header"><b>{properties.cd}</b></div>
           <Bar cands={properties.data.c}/>
           <div className="cands">
@@ -57,8 +46,6 @@ const PopOver = ({properties}) => {
           </div>
       </React.Fragment>
     }
-    
-    
   </Container>
 }
 
