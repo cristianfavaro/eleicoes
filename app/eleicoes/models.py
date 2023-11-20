@@ -27,6 +27,11 @@ class Mun(models.Model):
     z = models.JSONField("Zonas Eleitorais")    
 
 
+class Index(models.Model):
+    cdabr = models.CharField("Codigo Local", max_length=200)
+    arq = models.JSONField("Arquivos", blank=True, null=True, default=dict)
+
+
 class Candidates(models.Model): 
     #posso pensar em salvar eles separados e por aquivo.
     ele = models.IntegerField("Eleição", choices=Election.choices)

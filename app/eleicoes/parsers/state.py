@@ -4,9 +4,29 @@ from .utils import load
 from django.utils import timezone
 import re
 
+def get_election(file):
+    regex = r'e([\d]+)'
+    return int(re.findall(regex, file, re.MULTILINE)[0])
+
+def get_state(file=False):        
+    regex = r"([a-zA-Z]{2})[-|\d+]{0}"
+    return str(re.findall(regex, file, re.MULTILINE)[0]).upper()
+ 
+def create_url(file, url):
+    local = get_state(file)
+    ele = get_election(file)
+
+    return f"{url}{ele}/dados/{local}/{file}"
+
+
+
 class Parser:
-    def __init__(self, file):
-        self.data = load(file)
+    def __init__(self, file, url="https://resultados.tse.jus.br/oficial/ele2022/"):
+        
+        self.data = load(
+            create_url(file, url)
+        )
+        self.url = url
         self.ele = self.data["ele"]
         self.tpabr = self.data["abr"][0]["tpabr"]
         self.cdabr = self.data["abr"][0]["cdabr"]
@@ -16,15 +36,13 @@ class Parser:
             f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
         )
 
-        # self.state = self.get_state()
+        # self.state = get_state(self.data["nadf"])
         self.cands = self.get_candidates()
         
         self.brief = self.create_brief(self.data)
         self.values = self.create_values(self.data)
 
-    def get_state(self):        
-        regex = r"([a-zA-Z]{2})[-|\d+]{0}"
-        return str(re.findall(regex, self.data["nadf"], re.MULTILINE)[0]).upper()
+
 
     def parse(self):
         
@@ -46,7 +64,7 @@ class Parser:
         if self.carper == 1:
             cdabr = "BR"
         elif self.carper == 3:
-            cdabr = self.get_state() if self.tpabr == "MU" else self.cdabr
+            cdabr = get_state(self.data["nadf"]) if self.tpabr == "MU" else self.cdabr
 
         cands = Candidates.objects.filter(ele=self.ele, cdabr=cdabr, carper=self.carper).get()      
     
@@ -83,7 +101,7 @@ class Parser:
         simplified = self.simplify()
         
         obj, created = StateData.objects.get_or_create(
-            ele=self.ele, cdabr=self.get_state()
+            ele=self.ele, cdabr=get_state(self.data["nadf"])
         )
         obj.muns[self.cdabr] = simplified            
         obj.save()
@@ -101,39 +119,15 @@ class Parser:
             
         obj.save()
 
-
-# class GeneralParser(Parser):
-#     def __init__(self, file):
-#         super().__init__(file)
-        
-#     def store_data(self, element):
-        
-#         object, created= self.DB.objects.get_or_create(
-#             ele=element.pop("ele"),
-#             cdabr=self.cdabr, 
-#         )
-
-#         object.brief = element["brief"]
-#         object.values = element["values"]
-#         object.updated_at = self.updated_at
-#         object.save()                   
-
-#         if self.tpabr == "UF":          
-#             self.add_br_resume()
-
-#         if self.tpabr == "MU":
-#             object.muns[self.cdabr] = {
-#                 **self.create_brief(self.data), "c": self.create_values(self.data)
-#             }
-
-#             object.save()
-
-#             self.add_br_resume("muns")
+    @staticmethod
+    def validate(nm):
+        return False
+    
 
 
 class PresParser(Parser):
-    def __init__(self, file):
-        super().__init__(file)
+    def __init__(self, file, url):
+        super().__init__(file, url)
 
     def parse(self):
         
@@ -157,12 +151,20 @@ class PresParser(Parser):
         object.brief = element["brief"]
         object.values = element["values"]
         object.updated_at = self.updated_at
-        object.save()                   
+        object.save()         
+
+    @staticmethod
+    def validate(nm):
+        import re
+        text = nm
+        regex = r'[a-z]{2}\d+(.*).v.json'
+        return True if re.findall(regex, text) else False
+          
 
 
 class GovParser(Parser):
-    def __init__(self, file):
-        super().__init__(file)
+    def __init__(self, file, url):
+        super().__init__(file, url)
 
     def parse(self):
         
@@ -192,8 +194,10 @@ class GovParser(Parser):
 
 
 class MunParser(Parser):
-    def __init__(self, file):
-        super().__init__(file)
+    
+    def __init__(self, file, url):
+        super().__init__(file, url)
+        
     
     def store_data(self, element):
         
@@ -210,6 +214,20 @@ class MunParser(Parser):
         self.add_state_resume()
         self.add_br_resume("muns")
 
+    @staticmethod
+    def validate(nm):
+        import re
+        text = nm
+        regex = r'[a-z]{2}\d+(.*).v.json'
+        return True if re.findall(regex, text) else False
+
         
 class MayorParser:
     pass
+
+
+validators = [
+    PresParser, 
+    MunParser, 
+    GovParser,
+]

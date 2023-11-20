@@ -4,6 +4,8 @@ from eleicoes.parsers.state import PresParser, GovParser
 from eleicoes.models import BRData
 from rest_framework.test import APIClient
 
+url = "/app/eleicoes/tests/files/arquivos-originais/"
+
 class Test(TestCase):
     """
         Testando aqui os dados sendo inseridos considerando o governo e eles sendo enviados para o State do BR
@@ -15,14 +17,14 @@ class Test(TestCase):
         parse_candidates("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-001-f.json")
 
         #Parser - Dados Brasil
-        parser = PresParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-v.json")
+        parser = PresParser("br-c0001-e000544-v.json", url)
         parser.parse()
 
         ### Dados Presidente em estados
-        GovParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/es/es-c0001-e000544-v.json").parse()
-        GovParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/mg/mg-c0001-e000544-v.json").parse()
-        GovParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/rj/rj-c0001-e000544-v.json").parse()
-        GovParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/sp/sp-c0001-e000544-v.json").parse()
+        GovParser("es-c0001-e000544-v.json", url).parse()
+        GovParser("mg-c0001-e000544-v.json", url).parse()
+        GovParser("rj-c0001-e000544-v.json", url).parse()
+        GovParser("sp-c0001-e000544-v.json", url).parse()
 
         self.c = APIClient()        
 
@@ -30,7 +32,7 @@ class Test(TestCase):
         response = self.c.get('/api/eleicoes/544/br/')
         data = response.json()[0]
         
-        self.assertEquals(data["values"][0]["nm"], 'LUIZ INÁCIO LULA DA SILVA')
+        self.assertEquals(data["values"][0]["nmu"], 'LULA')
         self.assertEquals(data["values"][0]["vap"], '57259504')
         # #brief
         self.assertEquals(data["brief"]["vb"], '1964779')
@@ -47,7 +49,7 @@ class Test(TestCase):
         self.assertEquals(data["brief"]["vb"], 1000)
         
         # Rodando de novo para ver se ele muda.
-        parser = PresParser("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-v.json")
+        parser = PresParser("br-c0001-e000544-v.json", url)
         parser.parse()
 
         response = self.c.get('/api/eleicoes/544/br/')          

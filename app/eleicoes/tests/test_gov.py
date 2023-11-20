@@ -5,6 +5,8 @@ from eleicoes.parsers.state import GovParser, MunParser, MunData
 from eleicoes.models import StateData
 from rest_framework.test import APIClient
 
+url = "/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/"
+
 class Test(TestCase):
     """
         Testando aqui os dados sendo inseridos considerando o governo e eles sendo enviados para o State do BR
@@ -19,7 +21,7 @@ class Test(TestCase):
         parse_mun("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/config/mun-e009579-cm.json")
 
         #Parser
-        parser = GovParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-v.json")
+        parser = GovParser("df-c0003-e009579-v.json", url)
         parser.parse()
 
         self.c = APIClient()        
@@ -29,7 +31,7 @@ class Test(TestCase):
     
         values = response.json()["values"]
 
-        self.assertEquals(values[0]["nm"], "CANDIDATO 15")
+        self.assertEquals(values[0]["nmu"], "CANDIDATO 15")
         self.assertEquals(values[0]["vap"], 192240)
         self.assertEquals(values[0]["pvap"], "13,14")
 
@@ -45,7 +47,7 @@ class Test(TestCase):
         self.assertEquals(values[0]["vap"], 1000)
         
         # Rodando de novo para ver se ele muda.
-        parser = GovParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-v.json")
+        parser = GovParser("df-c0003-e009579-v.json", url)
         parser.parse()
 
         response = self.c.get('/api/eleicoes/9579/state/df/')          
@@ -59,7 +61,7 @@ class Test(TestCase):
         self.assertEquals(data["states"]["DF"]["c"][0]["vap"], 192240)
 
         ##Adicionando RN
-        parser = GovParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/rn/rn-c0003-e009579-v.json")
+        parser = GovParser("rn-c0003-e009579-v.json", url)
         parser.parse()
 
         response = self.c.get('/api/eleicoes/9579/br/')
@@ -82,7 +84,7 @@ class TestMun(TestCase):
         parse_mun("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/config/mun-e009579-cm.json")
 
         #Parser
-        parser = MunParser("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df97012-c0003-e009579-v.json")
+        parser = MunParser("df97012-c0003-e009579-v.json", url)
         parser.parse()
 
         self.c = APIClient()                
@@ -93,7 +95,7 @@ class TestMun(TestCase):
         
         values = response.json()["values"]
 
-        self.assertEquals(values[0]["nm"], "CANDIDATO 14")
+        self.assertEquals(values[0]["nmu"], "CANDIDATO 14")
         self.assertEquals(values[0]["vap"], 180079)
         self.assertEquals(values[0]["pvap"], "12,31")
 
