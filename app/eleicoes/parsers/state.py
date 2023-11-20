@@ -51,7 +51,7 @@ class Parser:
         cands = Candidates.objects.filter(ele=self.ele, cdabr=cdabr, carper=self.carper).get()      
     
         return {
-            int(item["n"]): {"nm": item["nm"], "par": item["par"]} for item in cands.values
+            int(item["n"]): {"nmu": item["nmu"], "par": item["par"]} for item in cands.values
         }
  
     def create_brief(self, data):
@@ -73,7 +73,7 @@ class Parser:
         return [
             { 
                 **item, 
-                "nm": self.cands[int(item["n"])]["nm"],
+                "nmu": self.cands[int(item["n"])]["nmu"],
                 "p": self.cands[int(item["n"])]["par"]
             } for item in data["abr"][0]["cand"]
         ]   

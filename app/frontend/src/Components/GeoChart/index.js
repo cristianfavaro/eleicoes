@@ -36,7 +36,11 @@ function GeoChart({ urlData, urlMap, colorScale, joinFunc}) {
       const pathGenerator = geoPath().projection(projec);
   
       // Three function that change the tooltip when user hover / move / leave a cell
-      var onMouseOver = (event, feature) => setSelected(feature);
+      var onMouseOver = (event, feature) => {
+        console.log(feature)
+        feature.properties.data &&
+          setSelected(feature);
+      }
       var onMouseOut = e => setSelected(null)
           
       svg
@@ -44,7 +48,7 @@ function GeoChart({ urlData, urlMap, colorScale, joinFunc}) {
         .data(joinFunc(geojson.features, data))
         .join("path")
         .on("mouseover", onMouseOver)
-        .on("mouseout", onMouseOut)
+        // .on("mouseout", onMouseOut)
         .attr("class", "place")       
         .transition()
         .attr("stroke", "black")
@@ -63,7 +67,10 @@ function GeoChart({ urlData, urlMap, colorScale, joinFunc}) {
 
   return <Container ref={wrapperRef}>
       <svg ref={svgRef}></svg>
-      <PopOver data={selected} show={selected} />
+      {
+        selected && <PopOver properties={selected.properties} />
+      }
+      
     </Container>  
 }
 
