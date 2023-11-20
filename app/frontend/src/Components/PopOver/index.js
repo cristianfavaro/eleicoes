@@ -2,20 +2,25 @@ import React, {useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import useMousePosition from '../../hooks/useMousePosition';
 import {kFormatter} from '../../utils/kFormatter';
+import { colorPicker } from '../../utils/colorPicker';
 
 const Container = styled.div`
-  border: 2px solid black;
-  background-color: white;
+  border: 1px solid darkgray;
+  background-color: white; 
   width: 200px;
   position: fixed;
-  /* display: ${ props => props.show ? "block" : "none"};   */
-  transition: transform 0.23s; /* Sticking effect */
+  transition: transform 0.23s; Sticking effect
   pointer-events: none; /* Allow clicking trough the div */
-  
   border-radius: 5px;
+
   .header{
-    background-color: lightgray;
+    background-color: lightblue;
+    font-size: small;
   }
+  >div{
+    padding: 0.2rem;
+  }
+  
   .cand{
     display: flex;
     justify-content: space-between;
@@ -24,6 +29,9 @@ const Container = styled.div`
     }
     small:first-child{
       width: 60%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   };
 `
@@ -36,17 +44,37 @@ const Cand = ({cand}) => {
   </div>
 }
 
+const BarContainer = styled.div`
+  height: 15px;
+  padding: 0.2rem 0;
+  display: flex;
+  .w3-grey{
+    background-color: gray;
+  }
+`
+
+const Bar =  React.memo(({cands}) => {
+
+  return <BarContainer>
+    {
+      cands.map(
+        (cand, i)=> <div
+          key={i}
+          className="w3-grey" 
+          style={{
+            width: `${cand.pvap.replace(",", ".")}%`,
+            backgroundColor: colorPicker(cand.p),
+          }}
+        />
+      )
+    }
+    
+  </BarContainer>
+})
+
 const PopOver = ({properties}) => {
   const {a, c, pa, vb, vn} = properties.data;
   const mousePosition = useMousePosition();
-
-  const cands = c.sort(function(a,b){
-    if(Number(a.vap) === Number(b.vap)){
-      return 0
-    }else{
-      return Number(a.vap) < (b.vap) ? 1 : -1;
-    }
-  })
 
   useEffect(()=>{
     if(popOverRef.current){
@@ -59,13 +87,11 @@ const PopOver = ({properties}) => {
 
   return <Container ref={popOverRef}>
 
-    <div className="header">{properties.cd}</div>
-    
-    <div>bar</div>
-
+    <div className="header"><b>{properties.cd}</b></div>
+    <Bar cands={c}/>
     <div className="cands">
       {
-        cands.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
+        c.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
       }
     </div>
     

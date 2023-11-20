@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import GeoChart from './index';
+import { colorPicker } from '../../utils/colorPicker';
 
 function BrUFMap() {
-  const colors = ["#B9EDDD", "#87CBB9", "#569DAA", "#577D86"];
   const [selectedCountry, setSelectedCountry] = useState(null);
 
   const colorScale = (feature) => {
-    return feature.properties.data ? colors[Math.floor(Math.random() * 4)] : "white"
+    return feature.properties.data ? colorPicker(feature.properties.data.c[0].p) : "white";
   };  
  
   function joinFunc(features, data){
@@ -16,7 +16,16 @@ function BrUFMap() {
           ...feature,
           properties: {
             ...feature["properties"], 
-            data: data[0].states[feature["properties"]["cd"]]
+            data: data[0].states[ feature["properties"]["cd"] ] ? {
+              ...data[0].states[ feature["properties"]["cd"] ],
+              c: data[0].states[ feature["properties"]["cd"] ]["c"].sort(function(a,b){ //ordenando os candidatos desde aqui
+                if(Number(a.vap) === Number(b.vap)){
+                  return 0
+                }else{
+                  return Number(a.vap) < (b.vap) ? 1 : -1;
+                }
+              })               
+            } : null
           }
         }
       }
