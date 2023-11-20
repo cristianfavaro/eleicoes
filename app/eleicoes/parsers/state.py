@@ -16,7 +16,7 @@ def create_url(file, url):
     local = get_state(file)
     ele = get_election(file)
 
-    return f"{url}{ele}/dados/{local}/{file}"
+    return f"{url}/{ele}/dados/{local.lower()}/{file}"
 
 
 
@@ -191,6 +191,14 @@ class GovParser(Parser):
         object.save()                   
         
         self.add_br_resume()
+
+    @staticmethod
+    def validate(nm):
+        import re
+        text = nm
+        regex = r'[a-z]{2}-(.*).v.json'
+        return True if re.findall(regex, text) else False
+
 
 
 class MunParser(Parser):

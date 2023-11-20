@@ -80,7 +80,10 @@ class TestMun(TestCase):
         parse_candidates("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/df/df-c0003-e009579-081-f.json")
         parse_candidates("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/dados/rn/rn-c0003-e009579-083-f.json")
 
+        #preciso para o teste do df 1
+        parse_candidates("/app/eleicoes/tests/files/arquivos-originais/544/dados/br/br-c0001-e000544-001-f.json")
         # depois criar os municipios tbm. 
+
         parse_mun("/app/eleicoes/tests/files/arquivos-de-exemplo/ele2022/9579/config/mun-e009579-cm.json")
 
         #Parser
@@ -103,3 +106,13 @@ class TestMun(TestCase):
         response = self.c.get('/api/eleicoes/9579/br/')
         data = response.json()[0]
         self.assertEquals(data["muns"]["97012"]["c"][0]["vap"], 180079)
+
+    def test_add_df97012(self):
+        url = "/app/eleicoes/tests/files/arquivos-originais"
+        parser = MunParser("df97012-c0001-e000544-v.json", url)
+        parser.parse()
+
+        
+
+
+
