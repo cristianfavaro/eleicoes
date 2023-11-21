@@ -33,7 +33,7 @@ const Bar =  React.memo(({cands}) => {
 
 const PopOver = ({properties}) => {
   const mousePosition = useMousePosition();
-  return <Container show={properties.cd} x={mousePosition.x} y={mousePosition.y}>  
+  return <Container $show={properties.cd} x={mousePosition.x} y={mousePosition.y}>  
     {/* valido para ver se o properties nao ta vazio */}
     {
       properties.cd && <React.Fragment> 

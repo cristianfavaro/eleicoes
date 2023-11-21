@@ -1,7 +1,7 @@
 import React, {Suspense, lazy} from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
-
+import './App.css';
 const BrUFMap = lazy(() => import('./Components/GeoChart/BrUFMap')); 
 const BrMunMap = lazy(() => import('./Components/GeoChart/BrMunMap')); 
 

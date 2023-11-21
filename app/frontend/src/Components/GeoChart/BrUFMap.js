@@ -33,7 +33,7 @@ function BrUFMap() {
   };
 
   return <div>
-      <GeoChart 
+        <GeoChart 
           urlData="/api/eleicoes/544/br/"
           urlMap="http://localhost:8080/br-estados.json" 
           colorScale={colorScale}

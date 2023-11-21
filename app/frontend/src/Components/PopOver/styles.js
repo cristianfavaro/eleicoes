@@ -20,7 +20,7 @@ export const Container = styled.div.attrs(
   background-color: white; 
   width: 200px;
   position: fixed;
-  display: ${props => props.show ? "block" : "none"};
+  display: ${({$show}) => $show ? "block" : "none"};
   transition: transform 0.23s; //Sticking effect
   pointer-events: none; /* Allow clicking trough the div */
   border-radius: 5px;

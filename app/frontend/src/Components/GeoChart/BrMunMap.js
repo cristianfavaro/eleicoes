@@ -36,10 +36,10 @@ function BrUFMap() {
       <GeoChart 
           urlData="/api/eleicoes/544/br/"
           urlMap="http://localhost:8080/br-mun.json" 
-          // colorScale={colorScale}
+          colorScale={colorScale}
           selected={selectedCountry}
-          // joinFunc={joinFunc}
-          // onClick={ (event, feature) =>setSelectedCountry(selectedCountry === feature ? null : feature)} 
+          joinFunc={joinFunc}
+          onClick={ (event, feature) =>setSelectedCountry(selectedCountry === feature ? null : feature)} 
         />    
     </div>
 }
