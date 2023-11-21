@@ -76,5 +76,6 @@ function GeoChart({ urlData, urlMap, colorScale, joinFunc}) {
 
 GeoChart.defaultProps = {
   joinFunc: joinFunc,
+  colorScale: ()=>{}
 }
 export default GeoChart;
