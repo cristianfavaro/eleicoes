@@ -3,7 +3,7 @@ import GeoChart from './index';
 import { colorPicker } from '../../utils/colorPicker';
 
 function BrUFMap() {
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  // const [selected, setSelected] = useState(null);
 
   const colorScale = (feature) => {
     return feature.properties.data ? colorPicker(feature.properties.data.c[0].p) : "white";
@@ -37,9 +37,9 @@ function BrUFMap() {
           urlData="/api/eleicoes/544/br/"
           urlMap="http://localhost:8080/br-estados.json" 
           colorScale={colorScale}
-          selected={selectedCountry}
+          // selected={selected}
           joinFunc={joinFunc}
-          onClick={ (event, feature) =>setSelectedCountry(selectedCountry === feature ? null : feature)} 
+          // onClick={ (event, feature) =>setSelected(selected === feature ? null : feature)} 
         />    
     </div>
 }

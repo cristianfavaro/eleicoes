@@ -6,6 +6,7 @@ export const Container = styled.div`
     height: 80vh;
     overflow: auto;
     padding: 0.5rem 0.5rem 0 0.5rem;
+    
     .header{
         position: sticky;
         display: flex;

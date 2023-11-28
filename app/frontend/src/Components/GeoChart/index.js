@@ -55,7 +55,7 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
         .on("click", onClick)
         .attr("class", "place")       
         .transition()
-        .attr("stroke", "black")
+        // .attr("stroke", "black")
         .attr("d", feature => pathGenerator(feature))  
         .attr("fill", feature => colorScale(feature, data))
         .attr("opacity", feature => feature.properties.data && `${feature.properties.data.c[0].pvap.replace(",", ".")}%`)
@@ -83,13 +83,16 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc}) => {
   const [selected, setSelected] = useState(null);
   const [clicked, setClicked] = useState(null)
 
+  useEffect(()=>{
+    console.log(clicked, ' to aqui')
+  }, [clicked])
+
   return <GeoChartContainer>
     <div>
       <Map {...{urlData, urlMap, colorScale, joinFunc, selected, setSelected, clicked, setClicked}}/>
     </div>
-    <Panel clicked={clicked}/>
-    
 
+    {/* <Panel clicked={clicked}/> */}
   </GeoChartContainer>
 }
 

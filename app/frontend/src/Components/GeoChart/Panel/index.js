@@ -37,14 +37,13 @@ Cand.defaultProps = {
   img: "user.png",
 }
 
-
-
 const Header = ({clicked}) =>{
   return <div className="header">
-    <h4>{clicked && clicked.properties.cd}</h4>
       <div>
-        <span>Abstenção: {clicked.properties.data.pa}%</span>
+        <h4>{clicked && clicked.properties.cd}</h4>
+        <small>Abstenção: {clicked.properties.data.pa}%</small>
       </div>
+
       <CircleProgress
         value={parseFloat(clicked.properties.data.psa)}
         title="Seções apuradas"
@@ -64,7 +63,6 @@ export default function Panel({clicked}){
       }
       <Cand nmu="Brancos" vap={clicked.properties.data.vb} pvap={clicked.properties.data.pvb}/>
       <Cand nmu="Nulos" vap={clicked.properties.data.vn} pvap={clicked.properties.data.ptvn}/>
-      
-      
+         
     </Container>
   }

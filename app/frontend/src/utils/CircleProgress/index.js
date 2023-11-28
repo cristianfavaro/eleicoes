@@ -2,9 +2,10 @@ import React from "react"
 import { CircleProgressContainer } from "./styles"
 
 const CircleProgress = ({value, color, title}) => {
+
     return <CircleProgressContainer
         value={value}
-        color={color}
+        color={color} 
     >
       <div className="progress-bar-container">
         <div className="progress-bar css">
