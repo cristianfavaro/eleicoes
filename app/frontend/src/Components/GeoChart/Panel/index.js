@@ -1,55 +1,16 @@
 import React, {useEffect} from "react";
-import styled from "styled-components";
 import { kFormatter } from "../../../utils/kFormatter";
 import { colorPicker } from "../../../utils/colorPicker";
+import { Container, CandContainer } from "./styles";
 
-const CandContainer = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: 0.5rem;
-    border-bottom: 1px solid lightgray;
-    
-    b{
-        font-size: 0.8rem;
-    }
-    img{
-        height: 70px;
-        border-radius: 100%;
-    }
-    >div{
-        width: 100%;
-    }
-    .info{
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        
-        div{
-            display: flex;
-            flex-direction: column;
-        }
-        .data{
-            >*{
-                display: flex;
-                justify-content: end;
-            }
-        }
-    };
-    .bar{
-        height: 10px;
-        background-color: lightgray;
-        >div{
-            height: 10px;
-        }
-    };
-`
+import CircleProgress from "../../../utils/CircleProgress";
 
-const Cand = ({cand}) => {
-  const {e, n, nmu, p, pvap, vap, st} = cand;
-
+const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
+  
   return <CandContainer>
-    
-    <img src="user.png" alt="image" />
+    {
+      <img src={img} alt="image" />
+    }
     <div>
         <div className="info">
             <div className="name">
@@ -62,22 +23,48 @@ const Cand = ({cand}) => {
             </div>    
         </div>
         <div className="bar">
-            <div style={{backgroundColor: colorPicker(p), width: `${pvap.replace(",", ".")}%`}}></div>
+            {
+                pvap && <div style={{backgroundColor: colorPicker(p), width: `${pvap.replace(",", ".")}%`}}></div>
+            }
+            
         </div>
     </div>
     
   </CandContainer>
-};
+})
 
+Cand.defaultProps = {
+  img: "user.png",
+}
+
+
+
+const Header = ({clicked}) =>{
+  return <div className="header">
+    <h4>{clicked && clicked.properties.cd}</h4>
+      <div>
+        <span>Abstenção: {clicked.properties.data.pa}%</span>
+      </div>
+      <CircleProgress
+        value={parseFloat(clicked.properties.data.psa)}
+        title="Seções apuradas"
+      />    
+  </div>
+}
 
 export default function Panel({clicked}){
     useEffect(()=>{
       console.log(clicked, ' vendo aqui')
     }, [clicked])
-    return <div>
-      <h4>{clicked && clicked.properties.cd}</h4>
+
+    return clicked && <Container>
+      <Header clicked={clicked}/>
       {
-        clicked && clicked.properties.data.c.map( (cand, i) => <Cand key={i} cand={cand}/>)
+        clicked.properties.data.c.map( (cand, i) => <Cand key={i} {...cand}/>)
       }
-    </div>
+      <Cand nmu="Brancos" vap={clicked.properties.data.vb} pvap={clicked.properties.data.pvb}/>
+      <Cand nmu="Nulos" vap={clicked.properties.data.vn} pvap={clicked.properties.data.ptvn}/>
+      
+      
+    </Container>
   }
