@@ -1,5 +1,5 @@
 from .state import GovParser, MunParser
-from .utils import load
+from eleicoes.parsers.utils import load
 from eleicoes.models import Index
 import itertools
 
@@ -27,7 +27,6 @@ def get_gov_data(ele, local, url, validators=[GovParser, MunParser]):
             if Parser:
                 parser = Parser(update["nm"], url)
                 parser.parse()
-                print(f'Foi {update["nm"]}')
                 
         #processa tudo 
 

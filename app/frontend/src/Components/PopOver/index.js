@@ -31,13 +31,13 @@ const Bar =  React.memo(({cands}) => {
   </BarContainer>
 })
 
-const PopOver = ({properties}) => {
+const PopOver = ({properties, headerField}) => {
   const mousePosition = useMousePosition();
   return <Container $show={properties.cd} x={mousePosition.x} y={mousePosition.y}>  
     {/* valido para ver se o properties nao ta vazio */}
     {
       properties.cd && <React.Fragment> 
-          <div className="header"><b>{properties.cd}</b></div>
+          <div className="header"><b>{properties[headerField]}</b></div>
           <Bar cands={properties.data.c}/>
           <div className="cands">
             {

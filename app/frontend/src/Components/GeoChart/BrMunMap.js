@@ -38,6 +38,7 @@ function BrMunMap() {
           urlMap="http://localhost:8080/br-mun.json" 
           colorScale={colorScale}
           joinFunc={joinFunc}
+          headerField="nm"
         />    
     </div>
 }

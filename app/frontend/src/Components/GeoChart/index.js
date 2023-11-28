@@ -14,7 +14,7 @@ function joinFunc(features, data){
   return features
 }
 
-function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, clicked, setClicked}) {
+function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, clicked, setClicked, headerField}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
@@ -74,12 +74,12 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
 
   return <Container ref={wrapperRef}>  
       <svg ref={svgRef}></svg>
-      <PopOver properties={selected && selected.properties || undefined} />      
+      <PopOver headerField={headerField} properties={selected && selected.properties || undefined} />      
     </Container>  
 };
 
 
-const GeoChart = ({urlData, urlMap, colorScale, joinFunc}) => {
+const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
   const [selected, setSelected] = useState(null);
   const [clicked, setClicked] = useState(null)
 
@@ -89,7 +89,7 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc}) => {
 
   return <GeoChartContainer>
     <div>
-      <Map {...{urlData, urlMap, colorScale, joinFunc, selected, setSelected, clicked, setClicked}}/>
+      <Map {...{urlData, urlMap, colorScale, joinFunc, selected, setSelected, clicked, setClicked, headerField}}/>
     </div>
 
     {/* <Panel clicked={clicked}/> */}
@@ -98,6 +98,7 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc}) => {
 
 GeoChart.defaultProps = {
   joinFunc: joinFunc,
+  headerField: "cd",
   colorScale: ()=>{}
 }
 export default GeoChart;

@@ -80,7 +80,7 @@ class Parser:
             "vb": data["abr"][0]["vb"],   
             "pvb": data["abr"][0]["pvb"],  
             "vn": data["abr"][0]["vn"],   
-            "pvn": data["abr"][0]["pvn"],   
+            "ptvn": data["abr"][0]["ptvn"],   
         }
 
     def simplify(self):
