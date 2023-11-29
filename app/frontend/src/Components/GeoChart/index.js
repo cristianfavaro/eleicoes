@@ -92,7 +92,7 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
       <Map {...{urlData, urlMap, colorScale, joinFunc, selected, setSelected, clicked, setClicked, headerField}}/>
     </div>
 
-    {/* <Panel clicked={clicked}/> */}
+    <Panel headerField={headerField} clicked={clicked}/>
   </GeoChartContainer>
 }
 

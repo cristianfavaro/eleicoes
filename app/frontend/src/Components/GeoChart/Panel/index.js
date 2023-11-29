@@ -37,10 +37,10 @@ Cand.defaultProps = {
   img: "user.png",
 }
 
-const Header = ({clicked}) =>{
+const Header = ({clicked, headerField}) =>{
   return <div className="header">
       <div>
-        <h4>{clicked && clicked.properties.cd}</h4>
+        <h4>{clicked && clicked.properties[headerField]}</h4>
         <small>Abstenção: {clicked.properties.data.pa}%</small>
       </div>
 
@@ -51,13 +51,13 @@ const Header = ({clicked}) =>{
   </div>
 }
 
-export default function Panel({clicked}){
+export default function Panel({clicked, headerField}){
     useEffect(()=>{
       console.log(clicked, ' vendo aqui')
     }, [clicked])
 
-    return clicked && <Container>
-      <Header clicked={clicked}/>
+    return clicked && clicked.properties.data &&  <Container>
+      <Header headerField={headerField} clicked={clicked}/>
       {
         clicked.properties.data.c.map( (cand, i) => <Cand key={i} {...cand}/>)
       }
