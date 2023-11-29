@@ -16,9 +16,9 @@ function BrUFMap() {
           ...feature,
           properties: {
             ...feature["properties"], 
-            data: data[0].states[ feature["properties"]["cd"] ] ? {
-              ...data[0].states[ feature["properties"]["cd"] ],
-              c: data[0].states[ feature["properties"]["cd"] ]["c"].sort(function(a,b){ //ordenando os candidatos desde aqui
+            data: data[ feature["properties"]["cd"] ] ? {
+              ...data[ feature["properties"]["cd"] ],
+              c: data[ feature["properties"]["cd"] ]["c"].sort(function(a,b){ //ordenando os candidatos desde aqui
                 if(Number(a.vap) === Number(b.vap)){
                   return 0
                 }else{
@@ -34,8 +34,8 @@ function BrUFMap() {
 
   return <div>
         <GeoChart 
-          urlData="/api/eleicoes/544/br/"
-          urlMap="http://localhost:8080/br-estados.json" 
+          urlData="http://localhost:8080/eleicoes/544/br/states.json"
+          urlMap="http://localhost:8080/maps/br-estados.json" 
           colorScale={colorScale}
           // selected={selected}
           joinFunc={joinFunc}

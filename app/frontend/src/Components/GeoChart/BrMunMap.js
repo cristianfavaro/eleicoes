@@ -16,9 +16,9 @@ function BrMunMap() {
           ...feature,
           properties: {
             ...feature["properties"], 
-            data: data[0].muns[ feature["properties"]["cd"] ] ? {
-              ...data[0].muns[ feature["properties"]["cd"] ],
-              c: data[0].muns[ feature["properties"]["cd"] ]["c"].sort(function(a,b){ //ordenando os candidatos desde aqui
+            data: data[ feature["properties"]["cd"] ] ? {
+              ...data[ feature["properties"]["cd"] ],
+              c: data[ feature["properties"]["cd"] ]["c"].sort(function(a,b){ //ordenando os candidatos desde aqui
                 if(Number(a.vap) === Number(b.vap)){
                   return 0
                 }else{
@@ -34,8 +34,8 @@ function BrMunMap() {
 
   return <div>
       <GeoChart 
-          urlData="/api/eleicoes/544/br/"
-          urlMap="http://localhost:8080/br-mun.json" 
+          urlData="http://localhost:8080/eleicoes/544/br/muns.json"
+          urlMap="http://localhost:8080/maps/br-mun.json" 
           colorScale={colorScale}
           joinFunc={joinFunc}
           headerField="nm"

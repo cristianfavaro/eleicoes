@@ -22,6 +22,8 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
   // will be called initially and on every data change
   useEffect(() => {
     function createMap(data, geojson){         
+
+      console.log("vendo a data ", data)
       const svg = select(svgRef.current);
       // use resized dimensions
       
@@ -62,7 +64,7 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
     }
 
     Promise.all([
-      json(apiEndPoints.http + urlData),
+      json(urlData),
       json(urlMap),
     ]).then(([data, geojson]) => {    
       createMap(data, geojson);
