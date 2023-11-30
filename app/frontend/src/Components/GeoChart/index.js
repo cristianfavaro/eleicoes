@@ -3,6 +3,7 @@ import { select, geoPath, geoMercator, json } from "d3";
 import PopOver from "../PopOver";
 import { Container, GeoChartContainer} from "./styles";
 import Panel from "./Panel";
+import Search from "./Search";
 
 /**
  * Component that renders a map.
@@ -12,6 +13,9 @@ import Panel from "./Panel";
 function joinFunc(features, data){
   return features
 }
+
+
+
 
 function Map({ urlData, hovered, setHovered, urlMap, colorScale, joinFunc, clicked, setClicked, headerField}) {
   const svgRef = useRef();
@@ -75,11 +79,14 @@ function Map({ urlData, hovered, setHovered, urlMap, colorScale, joinFunc, click
 
   }, [urlMap, urlData, clicked]);
 
-  return <Container ref={wrapperRef}>  
+  return <Container ref={wrapperRef}> 
+      
       <svg ref={svgRef}></svg>
       <PopOver headerField={headerField} properties={hovered && hovered.properties || undefined} />      
     </Container>  
 };
+
+
 
 
 const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
@@ -87,12 +94,14 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
   const [clicked, setClicked] = useState(null)
 
   return <GeoChartContainer>
+    
     <div>
+      <Search/>
       <Map {...{urlData, urlMap, colorScale, joinFunc, hovered, setHovered, clicked, setClicked, headerField}}/>
     </div>
-
     <Panel headerField={headerField} clicked={clicked}/>
   </GeoChartContainer>
+
 }
 
 GeoChart.defaultProps = {
