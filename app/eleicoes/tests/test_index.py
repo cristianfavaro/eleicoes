@@ -6,33 +6,6 @@ from rest_framework.test import APIClient
 from eleicoes.parsers.index import get_gov_data
 
 
-["AL", 
-"AC",
-"AP", 
-"AM", 
-"BA", 
-"CE", 
-"DF", 
-"ES", 
-"GO", 
-"MA", 
-"MT", 
-"MS", 
-"MG", 
-"PA", 
-"PB", 
-"PR", 
-"PE", 
-"PI", 
-"RJ", 
-"RN", 
-"RS", 
-"RO", 
-"RR", 
-"SC", 
-"SP", 
-"SE", 
-"TO"]
 
 class TestBR(TestCase):
     """

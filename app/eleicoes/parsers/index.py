@@ -1,13 +1,43 @@
-from .state import GovParser, MunParser
+from eleicoes.parsers.state import GovParser, MunParser
 from eleicoes.parsers.utils import load
 from eleicoes.models import Index
 import itertools
 
-def create_url_config(ele, local, url="https://resultados.tse.jus.br/oficial/ele2022"):
+def create_url_config(ele, local, url):
     return f"{url}/{ele}/config/{local.lower()}/{local.lower()}-e000544-i.json"
 
 
-def get_gov_data(ele, local, url, validators=[GovParser, MunParser]): 
+states = [
+    "AL", 
+    "AC",
+    "AP", 
+    "AM", 
+    "BA", 
+    "CE", 
+    "DF", 
+    "ES", 
+    "GO", 
+    "MA", 
+    "MT", 
+    "MS", 
+    "MG", 
+    "PA", 
+    "PB", 
+    "PR", 
+    "PE", 
+    "PI", 
+    "RJ", 
+    "RN", 
+    "RS", 
+    "RO", 
+    "RR", 
+    "SC", 
+    "SP", 
+    "SE", 
+    "TO"
+]
+
+def get_gov_data(ele, local, url="https://resultados.tse.jus.br/oficial/ele2022", validators=[GovParser, MunParser]): 
     data = load(
         create_url_config(ele, local, url)
     )
@@ -25,6 +55,7 @@ def get_gov_data(ele, local, url, validators=[GovParser, MunParser]):
         for update in updates:
             Parser = next((Func for Func in validators if Func.validate(update["nm"])), False)
             if Parser:
+                print('--Pegando esse: ', update["nm"])
                 parser = Parser(update["nm"], url)
                 parser.parse()
                 
@@ -34,3 +65,9 @@ def get_gov_data(ele, local, url, validators=[GovParser, MunParser]):
     index.save()    
 
     return updates
+
+def main():
+    ele = 544
+    for state in states:
+        print("=== ", state)
+        d = get_gov_data(ele, state)

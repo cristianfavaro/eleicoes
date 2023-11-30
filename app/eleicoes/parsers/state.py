@@ -1,11 +1,11 @@
 
 from eleicoes.models import Candidates, StateData, BRData, MunData
 from .utils import load
-from django.utils import timezone
 import re
 
+
 def get_election(file):
-    regex = r'e([\d]+)'
+    regex = r'-e([\d]+)'
     return int(re.findall(regex, file, re.MULTILINE)[0])
 
 def get_state(file=False):        
@@ -18,6 +18,61 @@ def create_url(file, url):
 
     return f"{url}/{ele}/dados/{local.lower()}/{file}"
 
+
+def local_store(ele, local, cdabr, data):
+    import json
+    import os
+
+    filename = f'/app/frontend/data/eleicoes/{ele}/{local.lower()}/{str(cdabr).lower()}.json'
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile)
+
+
+def local_load(ele, local, cdabr):
+    import json
+    import os
+
+    filename = f'/app/frontend/data/eleicoes/{ele}/{local.lower()}/{str(cdabr).lower()}.json'
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+    try:
+        with open(filename) as infile:
+            return json.load(infile)
+    except FileNotFoundError:
+        return {}
+
+
+def store_resume(file, simplified, cdabr, tpabr):
+    local = get_state(file)
+    ele = get_election(file)
+    
+
+    ##BR faz nada
+
+    if tpabr == "BR":
+        pass
+    elif tpabr == "UF":
+        data = local_load(ele, "br", "states")
+        data[cdabr] = simplified
+        local_store(ele, "br", "states", data)
+
+    elif tpabr == "MU":
+        data_br = local_load(ele, "br", "muns")
+        data_br[cdabr] = simplified
+        local_store(ele, "br", "muns", data_br)
+
+        data_uf = local_load(ele, local, "muns")
+        data_uf[cdabr] = simplified
+        local_store(ele, local, "muns", data_uf)
+
+
+def store_data(file, element):
+    local = get_state(file)
+    ele = get_election(file)
+
+    local_store(ele, local, element["cdabr"], element)
 
 
 class Parser:
@@ -32,16 +87,17 @@ class Parser:
         self.cdabr = self.data["abr"][0]["cdabr"]
         self.carper = int(self.data["carper"])
     
-        self.updated_at = timezone.datetime.strptime(
-            f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
-        )
+        self.updated_at = f"{self.data['dg']} {self.data['hg']}"
+                
+        # timezone.datetime.strptime(
+        #     f"{self.data['dg']} {self.data['hg']}", '%d/%m/%Y %H:%M:%S'
+        # )
 
         # self.state = get_state(self.data["nadf"])
         self.cands = self.get_candidates()
         
         self.brief = self.create_brief(self.data)
         self.values = self.create_values(self.data)
-
 
 
     def parse(self):
@@ -51,6 +107,7 @@ class Parser:
             "cdabr": self.cdabr, 
             "brief": self.brief,
             "values": self.values,
+            "updated_at": self.updated_at
         }        
 
         self.store_data(element)
@@ -69,7 +126,7 @@ class Parser:
         cands = Candidates.objects.filter(ele=self.ele, cdabr=cdabr, carper=self.carper).get()      
     
         return {
-            int(item["n"]): {"nmu": item["nmu"], "par": item["par"]} for item in cands.values
+            int(item["n"]): {"nmu": item["nmu"], "par": item["par"], "sqcand": item["sqcand"]} for item in cands.values
         }
  
     def create_brief(self, data):
@@ -92,7 +149,8 @@ class Parser:
             { 
                 **item, 
                 "nmu": self.cands[int(item["n"])]["nmu"],
-                "p": self.cands[int(item["n"])]["par"]
+                "p": self.cands[int(item["n"])]["par"],
+                "sqcand": self.cands[int(item["n"])]["sqcand"]
             } for item in data["abr"][0]["cand"]
         ]   
 
@@ -106,18 +164,6 @@ class Parser:
         obj.muns[self.cdabr] = simplified            
         obj.save()
 
-    def add_br_resume(self, type_data="states"):
-
-        simplified = self.simplify()
-
-        obj, created = BRData.objects.get_or_create(ele=self.ele, cdabr="BR")
-
-        if type_data == "states":
-            obj.states[self.cdabr] = simplified
-        elif type_data == "muns":
-            obj.muns[self.cdabr] = simplified
-            
-        obj.save()
 
     @staticmethod
     def validate(nm):
@@ -129,29 +175,12 @@ class PresParser(Parser):
     def __init__(self, file, url):
         super().__init__(file, url)
 
-    def parse(self):
-        
-        element = {
-            "ele": self.ele,
-            "cdabr": self.cdabr, 
-            "brief": self.brief,
-            "values": self.values,
-        }        
-
-        self.store_data(element)
-
         
     def store_data(self, element):
         
-        object, created = BRData.objects.get_or_create(
-            ele=element.pop("ele"),
-            cdabr="BR", 
-        )
-
-        object.brief = element["brief"]
-        object.values = element["values"]
-        object.updated_at = self.updated_at
-        object.save()         
+        store_data(self.data["nadf"], element) #aqui eu nao quero rodar o dado de cada municipio
+        # store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
+        
 
     @staticmethod
     def validate(nm):
@@ -166,31 +195,9 @@ class GovParser(Parser):
     def __init__(self, file, url):
         super().__init__(file, url)
 
-    def parse(self):
-        
-        element = {
-            "ele": self.ele,
-            "cdabr": self.cdabr, 
-            "brief": self.brief,
-            "values": self.values,
-        }        
-
-        self.store_data(element)
-
-    
-    def store_data(self, element):
-        
-        object, created= StateData.objects.get_or_create(
-            ele=element.pop("ele"),
-            cdabr=self.cdabr, 
-        )
-
-        object.brief = element["brief"]
-        object.values = element["values"]
-        object.updated_at = self.updated_at
-        object.save()                   
-        
-        self.add_br_resume()
+    def store_data(self, element):        
+        # store_data(self.data["nadf"], element)
+        store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
 
     @staticmethod
     def validate(nm):
@@ -200,28 +207,15 @@ class GovParser(Parser):
         return True if re.findall(regex, text) else False
 
 
-
 class MunParser(Parser):
     
     def __init__(self, file, url):
         super().__init__(file, url)
         
-    
     def store_data(self, element):
+        # store_data(self.data["nadf"], element) #aqui eu nao quero rodar o dado de cada municipio
+        store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
         
-        object, created = MunData.objects.get_or_create(
-            ele=element.pop("ele"),
-            cdabr=self.cdabr,
-        )
-
-        object.brief = element["brief"]
-        object.values = element["values"]
-        object.updated_at = self.updated_at
-        object.save()        
-
-        self.add_state_resume()
-        self.add_br_resume("muns")
-
     @staticmethod
     def validate(nm):
         import re
@@ -239,3 +233,4 @@ validators = [
     MunParser, 
     GovParser,
 ]
+
