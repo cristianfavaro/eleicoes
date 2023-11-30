@@ -59,7 +59,13 @@ export default function Panel({clicked, headerField}){
     return clicked && clicked.properties.data &&  <Container>
       <Header headerField={headerField} clicked={clicked}/>
       {
-        clicked.properties.data.c.map( (cand, i) => <Cand key={i} {...cand}/>)
+        clicked.properties.data.c.map(
+          (cand, i) => <Cand 
+                        key={i}
+                        {...cand}
+                        img={`https://resultados.tse.jus.br/oficial/ele2022/544/fotos/br/${cand.sqcand}.jpeg`}
+                      />
+        )
       }
       <Cand nmu="Brancos" vap={clicked.properties.data.vb} pvap={clicked.properties.data.pvb}/>
       <Cand nmu="Nulos" vap={clicked.properties.data.vn} pvap={clicked.properties.data.ptvn}/>

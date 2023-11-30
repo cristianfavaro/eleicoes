@@ -22,15 +22,13 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
   // will be called initially and on every data change
   useEffect(() => {
     function createMap(data, geojson){         
-
-      console.log("vendo a data ", data)
       const svg = select(svgRef.current);
       // use resized dimensions
       
       const { width, height } = wrapperRef.current.getBoundingClientRect();
       
       const projec = geoMercator()
-        .fitSize([width, height], geojson) // assim fazia o zoom selected || data
+        .fitSize([width, height], selected || geojson) // assim fazia o zoom selected || data
         .precision(100);
   
       // takes geojson data,
@@ -44,7 +42,9 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
         };
       };
       var onClick = (event, feature) => {
-        feature !== clicked && setClicked(feature);
+        // feature !== clicked &&        
+        setClicked(selected === feature ? null : feature);
+        // setSelectedCountry(selectedCountry === feature ? null : feature
       };
       var onMouseOut = e => setSelected(null)
           
@@ -67,6 +67,9 @@ function Map({ urlData, selected, setSelected, urlMap, colorScale, joinFunc, cli
       json(urlData),
       json(urlMap),
     ]).then(([data, geojson]) => {    
+      console.log("vendo a data ", data)
+      console.log("vendo a geojson ", geojson)
+      
       createMap(data, geojson);
     }).catch((e) => {
       console.error(e); // "oh, no!"
