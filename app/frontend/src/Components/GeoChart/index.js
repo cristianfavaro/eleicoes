@@ -17,7 +17,7 @@ function joinFunc(features, data){
 
 
 
-function Map({ urlData, hovered, setHovered, urlMap, colorScale, joinFunc, clicked, setClicked, headerField}) {
+function Map({ urlData, hovered, setHovered, setGeojson, urlMap, colorScale, joinFunc, clicked, setClicked, headerField}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
@@ -70,9 +70,10 @@ function Map({ urlData, hovered, setHovered, urlMap, colorScale, joinFunc, click
     Promise.all([
       json(urlData),
       json(urlMap),
-    ]).then(([data, geojson]) => {    
-      geojson["features"] = joinFunc(geojson.features, data)
-      createMap(geojson);
+    ]).then(([data, geo]) => {    
+      geo["features"] = joinFunc(geo.features, data)
+      setGeojson(geo);
+      createMap(geo);
     }).catch((e) => {
       console.error(e); // "oh, no!"
     })
@@ -91,13 +92,14 @@ function Map({ urlData, hovered, setHovered, urlMap, colorScale, joinFunc, click
 
 const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
   const [hovered, setHovered] = useState(null);
-  const [clicked, setClicked] = useState(null)
+  const [clicked, setClicked] = useState(null);
+  const [geojson, setGeojson] = useState(false);
 
   return <GeoChartContainer>
     
     <div>
-      <Search/>
-      <Map {...{urlData, urlMap, colorScale, joinFunc, hovered, setHovered, clicked, setClicked, headerField}}/>
+      <Search geojson={geojson} setClicked={setClicked}/>
+      <Map {...{urlData, urlMap, setGeojson, colorScale, joinFunc, hovered, setHovered, clicked, setClicked, headerField}}/>
     </div>
     <Panel headerField={headerField} clicked={clicked}/>
   </GeoChartContainer>
