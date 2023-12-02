@@ -14,10 +14,7 @@ function joinFunc(features, data){
   return features
 }
 
-
-
-
-function Map({ urlData, hovered, setHovered, setGeojson, urlMap, colorScale, joinFunc, clicked, setClicked, headerField}) {
+function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked, headerField}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
@@ -46,8 +43,6 @@ function Map({ urlData, hovered, setHovered, setGeojson, urlMap, colorScale, joi
       };
 
       var onClick = (event, feature) => {
-        console.log(clicked, ' vendo o clicked')
-        console.log(feature, ' vendo o clicked')
         setClicked(JSON.stringify(clicked) === JSON.stringify(feature)  ? null : feature);
       };
 
@@ -62,23 +57,17 @@ function Map({ urlData, hovered, setHovered, setGeojson, urlMap, colorScale, joi
         .on("click", onClick)
         .attr("class", "place")       
         .transition()
+        .attr("stroke", "#fff")
+        .attr("stroke-width", "0.3px")
         .attr("d", feature => pathGenerator(feature))  
         .attr("fill", feature => colorScale(feature, geojson))
         .attr("opacity", feature => feature.properties.data && `${feature.properties.data.c[0].pvap.replace(",", ".")}%`)
     }
 
-    Promise.all([
-      json(urlData),
-      json(urlMap),
-    ]).then(([data, geo]) => {    
-      geo["features"] = joinFunc(geo.features, data)
-      setGeojson(geo);
-      createMap(geo);
-    }).catch((e) => {
-      console.error(e); // "oh, no!"
-    })
 
-  }, [urlMap, urlData, clicked]);
+    geojson && createMap(geojson);
+
+  }, [geojson, clicked]);
 
   return <Container ref={wrapperRef}> 
       
@@ -95,15 +84,39 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
   const [clicked, setClicked] = useState(null);
   const [geojson, setGeojson] = useState(false);
 
+  useEffect(()=>{
+
+    Promise.all([
+      json(urlData),
+      json(urlMap),
+    ]).then(([data, geo]) => {    
+      geo["features"] = joinFunc(geo.features, data)
+      setGeojson(geo);
+    }).catch((e) => {
+      console.error(e); // "oh, no!"
+    })
+
+  }, [urlMap, urlData])
+
+
   return <GeoChartContainer>
-    
-    <div>
+    <div className="container">
+      <Back {...{clicked, setClicked}}/>
       <Search geojson={geojson} setClicked={setClicked}/>
-      <Map {...{urlData, urlMap, setGeojson, colorScale, joinFunc, hovered, setHovered, clicked, setClicked, headerField}}/>
+      <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked, headerField}}/>
     </div>
     <Panel headerField={headerField} clicked={clicked}/>
   </GeoChartContainer>
 
+}
+
+const Back = ({clicked, setClicked}) => {
+
+  return clicked && <span
+      onClick={()=>setClicked(null)}
+    >
+      {"< Voltar"}
+    </span>
 }
 
 GeoChart.defaultProps = {
