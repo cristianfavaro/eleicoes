@@ -7,7 +7,7 @@ export const Container = styled.div`
     overflow: auto;
     padding: 0.5rem 0.5rem 0 0.5rem;
     
-    .header{
+    .top-container{
         position: sticky;
         display: flex;
         top: 0;
@@ -15,6 +15,11 @@ export const Container = styled.div`
         background-color: white;
         align-items: center;
     };
+    
+    .header{
+        display: block;
+        font-weight: 600;
+    }
 `
 
 export const CandContainer = styled.div`

@@ -4,7 +4,9 @@ import PopOver from "../PopOver";
 import { Container, GeoChartContainer} from "./styles";
 import Panel from "./Panel";
 import Search from "./Search";
+import { colorPicker } from '../../utils/colorPicker';
 
+import styled from "styled-components";
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
@@ -14,7 +16,7 @@ function joinFunc(features, data){
   return features
 }
 
-function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked, headerField}) {
+function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
@@ -60,10 +62,9 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked, he
         .attr("stroke", "#fff")
         .attr("stroke-width", "0.3px")
         .attr("d", feature => pathGenerator(feature))  
-        .attr("fill", feature => colorScale(feature, geojson))
+        .attr("fill", feature => colorScale(feature, clicked))
         .attr("opacity", feature => feature.properties.data && `${feature.properties.data.c[0].pvap.replace(",", ".")}%`)
     }
-
 
     geojson && createMap(geojson);
 
@@ -72,14 +73,11 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked, he
   return <Container ref={wrapperRef}> 
       
       <svg ref={svgRef}></svg>
-      <PopOver headerField={headerField} properties={hovered && hovered.properties || undefined} />      
     </Container>  
 };
 
 
-
-
-const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
+const GeoChart = ({urlData, urlMap, colorScale, joinFunc, titleComponent}) => {
   const [hovered, setHovered] = useState(null);
   const [clicked, setClicked] = useState(null);
   const [geojson, setGeojson] = useState(false);
@@ -102,13 +100,13 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, headerField}) => {
   return <GeoChartContainer>
     <div className="container">
       <Back {...{clicked, setClicked}}/>
-      <Search geojson={geojson} setClicked={setClicked}/>
-      <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked, headerField}}/>
+      <Search {...{geojson, setClicked}}/>
+      <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
     </div>
-    <Panel headerField={headerField} clicked={clicked}/>
+    <Panel clicked={clicked} titleComponent={titleComponent}/>
+    <PopOver titleComponent={titleComponent} hovered={hovered && hovered || undefined} />      
   </GeoChartContainer>
-
-}
+};
 
 const Back = ({clicked, setClicked}) => {
 
@@ -119,9 +117,34 @@ const Back = ({clicked, setClicked}) => {
     </span>
 }
 
+
+const TitleContainer = styled.div``
+const TitleComponent = ({selected}) => {
+  return <TitleContainer className="header">{selected && selected.properties["nm"]}</TitleContainer>
+}
+
+const colorScale = (feature, clicked) => {  
+  if(feature.properties.data){
+    if(clicked){
+      return clicked.properties.nm === feature.properties.nm ?
+        colorPicker(feature.properties.data.c[0].p)
+      : 
+        "gray"
+    }else{
+      return colorPicker(feature.properties.data.c[0].p)
+    }
+ 
+  }else{
+    return "white";
+  };
+  
+  // return feature.properties.data ? colorPicker(feature.properties.data.c[0].p) : "white";
+};  
+
+
 GeoChart.defaultProps = {
   joinFunc: joinFunc,
-  headerField: "cd",
-  colorScale: ()=>{}
+  colorScale: colorScale,
+  titleComponent: TitleComponent,
 }
 export default GeoChart;

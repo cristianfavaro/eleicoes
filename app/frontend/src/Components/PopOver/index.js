@@ -32,21 +32,21 @@ const Bar =  React.memo(({cands}) => {
 })
 
 
-const HeaderComponent = ({properties}) => {
-  return <div className="header"><b>{properties["cd"]}</b></div>
+const TitleComponent = ({properties}) => {
+  return <span className="header"><b>{properties["nm"]}</b></span>
 }
 
-const PopOver = ({properties, headerComponent: Header}) => {
+const PopOver = ({hovered, titleComponent: Header}) => {
   const mousePosition = useMousePosition();
-  return <Container $show={properties.cd} x={mousePosition.x} y={mousePosition.y}>  
+  return <Container $show={hovered} x={mousePosition.x} y={mousePosition.y}>  
     {/* valido para ver se o properties nao ta vazio */}
     {
-      properties.cd && <React.Fragment> 
-          <Header properties={properties}/>
-          <Bar cands={properties.data.c}/>
+      hovered && <React.Fragment> 
+          <Header selected={hovered}/>
+          <Bar cands={hovered.properties.data.c}/>
           <div className="cands">
             {
-              properties.data.c && properties.data.c.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
+              hovered.properties.data.c && hovered.properties.data.c.slice(0, 3).map( (cand, i)=> <Cand key={i} cand={cand}/>)
             }
           </div>
       </React.Fragment>
@@ -56,7 +56,7 @@ const PopOver = ({properties, headerComponent: Header}) => {
 
 PopOver.defaultProps = {
   properties: {data: {}},
-  headerComponent: HeaderComponent
+  titleComponent: TitleComponent
 }
 
 export default PopOver

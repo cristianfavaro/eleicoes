@@ -25,10 +25,6 @@ export const Container = styled.div.attrs(
   pointer-events: none; /* Allow clicking trough the div */
   border-radius: 5px;
   
-  .header{
-    background-color: lightblue;
-    font-size: small;
-  }
   >div{
     padding: 0.2rem;
   }

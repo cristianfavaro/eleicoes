@@ -1,11 +1,7 @@
 import React from 'react';
 import GeoChart from './index';
-import { colorPicker } from '../../utils/colorPicker';
 
 function BrMunMap() {
-  const colorScale = (feature) => {
-    return feature.properties.data ? colorPicker(feature.properties.data.c[0].p) : "white";
-  };  
  
   function joinFunc(features, data){
 
@@ -36,7 +32,6 @@ function BrMunMap() {
       <GeoChart 
           urlData="http://localhost:8080/eleicoes/544/br/muns.json"
           urlMap="http://localhost:8080/maps/br-mun.json" 
-          colorScale={colorScale}
           joinFunc={joinFunc}
           headerField="nm"
         />    
