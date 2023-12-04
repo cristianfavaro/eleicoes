@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 
 // Função que joga para fora da API a responsabilidade de dar o fetch;
 // Importante para usar com páginas que mudam conforme apenas o parâmetro URL;
-export function useAPI(url, {method="GET", data={}, params={}} = {}){
+export function useAPI(url, {method="GET", params={}} = {}){
     const [response, setResponse] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -10,13 +10,12 @@ export function useAPI(url, {method="GET", data={}, params={}} = {}){
     async function fetchData(){
         setLoading(true);
         setError(false);
-        await fetch({
+        await fetch(url, {
             method: method, 
-            url: url, 
-            data: data,
             params: params, 
         })
-        .then(response => setResponse(response))
+        .then(resp => resp.json())
+        .then(data => setResponse(data))
         .catch(error => setError(error))
         setLoading(false);
     }

@@ -5,12 +5,28 @@ import { Container, GeoChartContainer} from "./styles";
 import Panel from "./Panel";
 import Search from "./Search";
 import { colorPicker } from '../../utils/colorPicker';
-
+import {useAPIFetch} from '../../hooks/useAPIFetch';
 import styled from "styled-components";
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
  */
+
+
+const colorScale = (feature, clicked) => {  
+  if(feature.properties.data){
+    if(clicked){
+      return clicked.properties.nm === feature.properties.nm ?
+        colorPicker(feature.properties.data.c[0].p)
+      : 
+        "gray"
+    }else{
+      return colorPicker(feature.properties.data.c[0].p)
+    }
+  }else{
+    return "white";
+  };
+};  
 
 function joinFunc(features, data){
   return features
@@ -26,9 +42,7 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
     function createMap(geojson){         
       const svg = select(svgRef.current);
       // use resized dimensions
-      
       const { width, height } = wrapperRef.current.getBoundingClientRect();
-      
       const projec = geoMercator()
         .fitSize([width, height], clicked || geojson) // assim fazia o zoom hovered || data
         .precision(100);
@@ -71,13 +85,14 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   }, [geojson, clicked]);
 
   return <Container ref={wrapperRef}> 
-      
       <svg ref={svgRef}></svg>
     </Container>  
 };
 
 
-const GeoChart = ({urlData, urlMap, colorScale, joinFunc, titleComponent}) => {
+const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleComponent}) => {
+
+  const {response: data, loading, error} = useAPIFetch(urlData);
   const [hovered, setHovered] = useState(null);
   const [clicked, setClicked] = useState(null);
   const [geojson, setGeojson] = useState(false);
@@ -85,16 +100,16 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, titleComponent}) => {
   useEffect(()=>{
 
     Promise.all([
-      json(urlData),
+      json(urlBrief),
       json(urlMap),
-    ]).then(([data, geo]) => {    
-      geo["features"] = joinFunc(geo.features, data)
+    ]).then(([brief, geo]) => {    
+      geo["features"] = joinFunc(geo.features, brief)
       setGeojson(geo);
     }).catch((e) => {
       console.error(e); // "oh, no!"
     })
 
-  }, [urlMap, urlData])
+  }, [urlMap, urlBrief])
 
 
   return <GeoChartContainer>
@@ -103,10 +118,22 @@ const GeoChart = ({urlData, urlMap, colorScale, joinFunc, titleComponent}) => {
       <Search {...{geojson, setClicked}}/>
       <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
     </div>
-    <Panel clicked={clicked} titleComponent={titleComponent}/>
+    <Panel data={data && transformData(data)} clicked={clicked} titleComponent={titleComponent}/>
     <PopOver titleComponent={titleComponent} hovered={hovered && hovered || undefined} />      
   </GeoChartContainer>
 };
+
+function transformData(data){
+  return {
+    properties: {
+      nm: "Brasil",
+      data: {
+        ...data["brief"],
+        c: data["values"]
+      }
+    },
+  }
+}
 
 const Back = ({clicked, setClicked}) => {
 
@@ -120,26 +147,8 @@ const Back = ({clicked, setClicked}) => {
 
 const TitleContainer = styled.div``
 const TitleComponent = ({selected}) => {
-  return <TitleContainer className="header">{selected && selected.properties["nm"]}</TitleContainer>
+  return <TitleContainer className="header">{selected && selected.properties["nm"]} </TitleContainer>
 }
-
-const colorScale = (feature, clicked) => {  
-  if(feature.properties.data){
-    if(clicked){
-      return clicked.properties.nm === feature.properties.nm ?
-        colorPicker(feature.properties.data.c[0].p)
-      : 
-        "gray"
-    }else{
-      return colorPicker(feature.properties.data.c[0].p)
-    }
- 
-  }else{
-    return "white";
-  };
-  
-  // return feature.properties.data ? colorPicker(feature.properties.data.c[0].p) : "white";
-};  
 
 
 GeoChart.defaultProps = {

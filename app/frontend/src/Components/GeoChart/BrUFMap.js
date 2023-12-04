@@ -28,7 +28,8 @@ function BrUFMap() {
 
   return <div>
         <GeoChart 
-          urlData="http://localhost:8080/eleicoes/544/br/states.json"
+          urlBrief="http://localhost:8080/eleicoes/544/br/states.json"
+          urlData="http://localhost:8080/eleicoes/544/br/br.json"
           urlMap="http://localhost:8080/maps/br-estados.json" 
           
           // selected={selected}

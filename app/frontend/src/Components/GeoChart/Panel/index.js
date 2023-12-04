@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { kFormatter } from "../../../utils/kFormatter";
 import { colorPicker } from "../../../utils/colorPicker";
 import { Container, CandContainer } from "./styles";
-
 import CircleProgress from "../../../utils/CircleProgress";
+
 
 const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
   
@@ -26,7 +26,6 @@ const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
             {
                 pvap && <div style={{backgroundColor: colorPicker(p), width: `${pvap.replace(",", ".")}%`}}></div>
             }
-            
         </div>
     </div>
     
@@ -53,24 +52,25 @@ const Header = ({clicked, titleComponent: Title}) =>{
 }
 
 
-export default function Panel({clicked, titleComponent}){
-    useEffect(()=>{
-      console.log(clicked, ' vendo aqui')
-    }, [clicked])
 
-    return clicked && clicked.properties.data &&  <Container>
-      <Header clicked={clicked} titleComponent={titleComponent}/>
-      {
-        clicked.properties.data.c.map(
-          (cand, i) => <Cand 
-                        key={i}
-                        {...cand}
-                        img={`https://resultados.tse.jus.br/oficial/ele2022/544/fotos/br/${cand.sqcand}.jpeg`}
-                      />
-        )
-      }
-      <Cand nmu="Brancos" vap={clicked.properties.data.vb} pvap={clicked.properties.data.pvb}/>
-      <Cand nmu="Nulos" vap={clicked.properties.data.vn} pvap={clicked.properties.data.ptvn}/>
-         
-    </Container>
-  }
+export default function Panel({clicked, data, titleComponent}){
+
+  const selected = clicked ? clicked : data;
+
+  return selected && 
+    selected.properties.data &&  <Container>
+    <Header clicked={selected} titleComponent={titleComponent}/>
+    {
+      selected.properties.data.c.map(
+        (cand, i) => <Cand 
+                      key={i}
+                      {...cand}
+                      img={`https://resultados.tse.jus.br/oficial/ele2022/544/fotos/br/${cand.sqcand}.jpeg`}
+                    />
+      )
+    }
+    <Cand nmu="Brancos" vap={selected.properties.data.vb} pvap={selected.properties.data.pvb}/>
+    <Cand nmu="Nulos" vap={selected.properties.data.vn} pvap={selected.properties.data.ptvn}/>
+        
+  </Container>
+}

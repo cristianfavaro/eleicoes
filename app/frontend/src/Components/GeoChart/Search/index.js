@@ -5,11 +5,12 @@ import AsyncSelect from 'react-select/async';
 const Search = ({geojson, setClicked}) => {
     
     const filter = (inputValue) => {
-        
-        return geojson.features.filter((i) => 
+      return geojson.features
+        .filter((i) => 
           i.properties.nm.toLowerCase().includes(inputValue.toLowerCase())
-        ).map(item => ({value: item.properties.nm, label: item.properties.nm, selected: item}));
-      };
+        ).map(item => ({value: item.properties.nm, label: item.properties.nm, selected: item}))
+        .slice(0, 15);
+    };
     
     const promiseOptions = (inputValue) =>
         new Promise((resolve) => {
@@ -19,9 +20,10 @@ const Search = ({geojson, setClicked}) => {
     });
       
     return <AsyncSelect 
+      isClearable
       loadOptions={promiseOptions} 
-      placeholder="Digite o nome da empresa ou código CVM"
-      onChange={(e) => setClicked(e.selected)}
+      placeholder="Digite o nome da localidade"
+      onChange={ e => setClicked(e ? e.selected : null)}
     />
 
   }

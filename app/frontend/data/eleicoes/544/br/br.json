@@ -1,0 +1,137 @@
+{
+    "ele": "544",
+    "cdabr": "BR",
+    "brief": {
+        "psa": "100,00",
+        "a": "32770982",
+        "pa": "20,95",
+        "vb": "1964779",
+        "pvb": "1,59",
+        "vn": "3487874",
+        "ptvn": "2,82"
+    },
+    "values": [
+        {
+            "seq": "1",
+            "n": "13",
+            "vap": "57259504",
+            "pvap": "48,43",
+            "e": "S",
+            "st": "2\u00ba turno",
+            "nmu": "LULA",
+            "p": "PT",
+            "sqcand": "280001607829"
+        },
+        {
+            "seq": "2",
+            "n": "22",
+            "vap": "51072345",
+            "pvap": "43,20",
+            "e": "S",
+            "st": "2\u00ba turno",
+            "nmu": "JAIR BOLSONARO",
+            "p": "REPUBLICANOS",
+            "sqcand": "280001618036"
+        },
+        {
+            "seq": "3",
+            "n": "15",
+            "vap": "4915423",
+            "pvap": "4,16",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "SIMONE TEBET",
+            "p": "MDB",
+            "sqcand": "280001607833"
+        },
+        {
+            "seq": "4",
+            "n": "12",
+            "vap": "3599287",
+            "pvap": "3,04",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "CIRO GOMES",
+            "p": "PDT",
+            "sqcand": "280001612393"
+        },
+        {
+            "seq": "5",
+            "n": "44",
+            "vap": "600955",
+            "pvap": "0,51",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "SORAYA THRONICKE",
+            "p": "UNI\u00c3O",
+            "sqcand": "280001644128"
+        },
+        {
+            "seq": "6",
+            "n": "30",
+            "vap": "559708",
+            "pvap": "0,47",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "FELIPE D&apos;AVILA",
+            "p": "NOVO",
+            "sqcand": "280001603612"
+        },
+        {
+            "seq": "7",
+            "n": "14",
+            "vap": "81129",
+            "pvap": "0,07",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "PADRE KELMON",
+            "p": "PTB",
+            "sqcand": "280001734029"
+        },
+        {
+            "seq": "8",
+            "n": "80",
+            "vap": "53519",
+            "pvap": "0,05",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "L\u00c9O P\u00c9RICLES",
+            "p": "UP",
+            "sqcand": "280001602702"
+        },
+        {
+            "seq": "9",
+            "n": "21",
+            "vap": "45620",
+            "pvap": "0,04",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "SOFIA MANZANO",
+            "p": "PCB",
+            "sqcand": "280001600167"
+        },
+        {
+            "seq": "10",
+            "n": "16",
+            "vap": "25625",
+            "pvap": "0,02",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "VERA",
+            "p": "PSTU",
+            "sqcand": "280001607831"
+        },
+        {
+            "seq": "11",
+            "n": "27",
+            "vap": "16604",
+            "pvap": "0,01",
+            "e": "N",
+            "st": "N\u00e3o eleito",
+            "nmu": "CONSTITUINTE EYMAEL",
+            "p": "DC",
+            "sqcand": "280001677435"
+        }
+    ],
+    "updated_at": "04/10/2022 12:07:04"
+}
