@@ -9,6 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   position: relative;
   grid-area: CT;
+  
   >span{
     position: absolute;
     top: 80px;
@@ -21,10 +22,9 @@ export const Container = styled.div`
   }; 
 
   #map {
+    flex: 1 1 auto;
     display: block;
     width: 100%;
-    height: 300px;
-
     .place:hover {
       stroke: black;
       stroke-width: 1px;

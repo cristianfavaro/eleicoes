@@ -85,8 +85,8 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   }, [geojson, clicked]);
 
   return <Container ref={wrapperRef}> 
-      <Back {...{clicked, setClicked}}/>
       <Search {...{geojson, setClicked}}/>
+      <Back {...{clicked, setClicked}}/>
       <svg id="map" ref={svgRef}></svg>
     </Container>  
 };
