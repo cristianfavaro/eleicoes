@@ -31,10 +31,7 @@ function BrUFMap() {
           urlBrief="http://localhost:8080/eleicoes/544/br/states.json"
           urlData="http://localhost:8080/eleicoes/544/br/br.json"
           urlMap="http://localhost:8080/maps/br-estados.json" 
-          
-          // selected={selected}
           joinFunc={joinFunc}
-          // onClick={ (event, feature) =>setSelected(selected === feature ? null : feature)} 
         />    
     </div>
 }

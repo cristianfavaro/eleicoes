@@ -155,15 +155,6 @@ class Parser:
         ]   
 
 
-    def add_state_resume(self):
-        simplified = self.simplify()
-        
-        obj, created = StateData.objects.get_or_create(
-            ele=self.ele, cdabr=get_state(self.data["nadf"])
-        )
-        obj.muns[self.cdabr] = simplified            
-        obj.save()
-
 
     @staticmethod
     def validate(nm):
@@ -180,16 +171,14 @@ class PresParser(Parser):
         
         store_data(self.data["nadf"], element) #aqui eu nao quero rodar o dado de cada municipio
         # store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
-        
 
     @staticmethod
     def validate(nm):
         import re
         text = nm
-        regex = r'[a-z]{2}\d+(.*).v.json'
+        regex = r'br-(.*).v.json'
         return True if re.findall(regex, text) else False
           
-
 
 class GovParser(Parser):
     def __init__(self, file, url):

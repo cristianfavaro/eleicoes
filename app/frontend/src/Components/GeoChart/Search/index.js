@@ -14,9 +14,7 @@ const Search = ({geojson, setClicked}) => {
     
     const promiseOptions = (inputValue) =>
         new Promise((resolve) => {
-        
             resolve(filter(inputValue));
-        
     });
       
     return <AsyncSelect 

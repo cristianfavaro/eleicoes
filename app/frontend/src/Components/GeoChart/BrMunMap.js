@@ -34,7 +34,6 @@ function BrMunMap() {
           urlBrief="http://localhost:8080/eleicoes/544/br/muns.json"
           urlMap="http://localhost:8080/maps/br-mun.json" 
           joinFunc={joinFunc}
-          headerField="nm"
         />    
     </div>
 }
