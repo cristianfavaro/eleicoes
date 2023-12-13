@@ -36,7 +36,7 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   const svgRef = useRef();
   const wrapperRef = useRef();
   // const dimensions = useResizeObserver(wrapperRef);
-  
+
   // will be called initially and on every data change
   useEffect(() => {
     function createMap(geojson){         
@@ -85,7 +85,9 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   }, [geojson, clicked]);
 
   return <Container ref={wrapperRef}> 
-      <svg ref={svgRef}></svg>
+      <Back {...{clicked, setClicked}}/>
+      <Search {...{geojson, setClicked}}/>
+      <svg id="map" ref={svgRef}></svg>
     </Container>  
 };
 
@@ -98,7 +100,10 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
   const [geojson, setGeojson] = useState(false);
 
   useEffect(()=>{
+    console.log(clicked)
+  }, [clicked] )
 
+  useEffect(()=>{
     Promise.all([
       json(urlBrief),
       json(urlMap),
@@ -112,15 +117,11 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
   }, [urlMap, urlBrief])
 
 
-  return <GeoChartContainer>
-    <div className="container">
-      <Back {...{clicked, setClicked}}/>
-      <Search {...{geojson, setClicked}}/>
-      <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
-    </div>
+  return <React.Fragment>
+    <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
     <Panel data={data && transformData(data)} clicked={clicked} titleComponent={titleComponent}/>
     <PopOver titleComponent={titleComponent} hovered={hovered && hovered || undefined} />      
-  </GeoChartContainer>
+  </React.Fragment>
 };
 
 function transformData(data){

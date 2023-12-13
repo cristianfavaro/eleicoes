@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import GeoChart from './index';
+import {useControls} from '../../contexts/ControlsContext';
 
 function BrUFMap() {
- 
+  const {ele} = useControls();
   function joinFunc(features, data){
     return features.map(
       feature => {
@@ -26,14 +27,12 @@ function BrUFMap() {
     )
   };
 
-  return <div>
-        <GeoChart 
-          urlBrief="http://localhost:8080/eleicoes/544/br/states.json"
-          urlData="http://localhost:8080/eleicoes/544/br/br.json"
+  return <GeoChart 
+          urlBrief={`http://localhost:8080/eleicoes/${ele}/br/states.json`}
+          urlData={`http://localhost:8080/eleicoes/${ele}/br/br.json`} 
           urlMap="http://localhost:8080/maps/br-estados.json" 
           joinFunc={joinFunc}
         />    
-    </div>
 }
 
 export default BrUFMap;

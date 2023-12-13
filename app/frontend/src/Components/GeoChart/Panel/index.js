@@ -3,7 +3,7 @@ import { kFormatter } from "../../../utils/kFormatter";
 import { colorPicker } from "../../../utils/colorPicker";
 import { Container, CandContainer } from "./styles";
 import CircleProgress from "../../../utils/CircleProgress";
-
+import {useControls} from '../../../contexts/ControlsContext';
 
 const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
   
@@ -40,7 +40,6 @@ const Header = ({clicked, titleComponent: Title}) =>{
   return <div className="top-container">
       <div> 
         <Title selected={clicked}/>
-        
         <small>Abstenção: {clicked.properties.data.pa}%</small>
       </div>
 
@@ -49,28 +48,33 @@ const Header = ({clicked, titleComponent: Title}) =>{
         title="Seções apuradas"
       />    
   </div>
-}
+};
 
 
 
 export default function Panel({clicked, data, titleComponent}){
 
   const selected = clicked ? clicked : data;
+  const uf = clicked ? clicked["properties"]["uf"] || clicked["properties"]["cd"] : "br";
+  const {ele} = useControls();
 
-  return selected && 
-    selected.properties.data &&  <Container>
-    <Header clicked={selected} titleComponent={titleComponent}/>
+  return <Container>
+    
     {
-      selected.properties.data.c.map(
-        (cand, i) => <Cand 
-                      key={i}
-                      {...cand}
-                      img={`https://resultados.tse.jus.br/oficial/ele2022/544/fotos/br/${cand.sqcand}.jpeg`}
-                    />
-      )
+       selected && selected.properties.data && <React.Fragment>
+          <Header clicked={selected} titleComponent={titleComponent}/>
+          {
+              selected.properties.data.c.map(
+                (cand, i) => <Cand 
+                  key={i}
+                {...cand}
+                img={`https://resultados.tse.jus.br/oficial/ele2022/${ele}/fotos/${ ["546", "547"].indexOf(ele) > -1 ? uf.toLowerCase() : "br"}/${cand.sqcand}.jpeg`}
+              />
+)
+          }
+        <Cand nmu="Brancos" vap={selected.properties.data.vb} pvap={selected.properties.data.pvb}/>
+        <Cand nmu="Nulos" vap={selected.properties.data.vn} pvap={selected.properties.data.ptvn}/>    
+       </React.Fragment>  
     }
-    <Cand nmu="Brancos" vap={selected.properties.data.vb} pvap={selected.properties.data.pvb}/>
-    <Cand nmu="Nulos" vap={selected.properties.data.vn} pvap={selected.properties.data.ptvn}/>
-        
   </Container>
 }

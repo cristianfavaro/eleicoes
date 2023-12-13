@@ -44,6 +44,32 @@ def local_load(ele, local, cdabr):
         return {}
 
 
+
+
+def store_resumes(file, tpabr, resumes):
+    local = get_state(file)
+    ele = get_election(file)
+    
+    ##BR faz nada
+
+    if tpabr == "BR":
+        pass
+    elif tpabr == "UF":
+        data = local_load(ele, "br", "states")
+        data = {**data, **resumes}
+        local_store(ele, "br", "states", data)
+
+    elif tpabr == "MU":
+        data_br = local_load(ele, "br", "muns")
+        data_br = {**data_br, **resumes}
+        local_store(ele, "br", "muns", data_br)
+
+        data_uf = local_load(ele, local, "muns")
+        data_uf = {**data_uf, **resumes}
+        local_store(ele, local, "muns", data_uf)
+
+
+
 def store_resume(file, simplified, cdabr, tpabr):
     local = get_state(file)
     ele = get_election(file)
@@ -110,7 +136,7 @@ class Parser:
             "updated_at": self.updated_at
         }        
 
-        self.store_data(element)
+        return self.store_data(element)
 
 
     def get_candidates(self):
@@ -165,8 +191,7 @@ class Parser:
 class PresParser(Parser):
     def __init__(self, file, url):
         super().__init__(file, url)
-
-        
+ 
     def store_data(self, element):
         
         store_data(self.data["nadf"], element) #aqui eu nao quero rodar o dado de cada municipio
@@ -185,7 +210,7 @@ class GovParser(Parser):
         super().__init__(file, url)
 
     def store_data(self, element):        
-        # store_data(self.data["nadf"], element)
+        store_data(self.data["nadf"], element)
         store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
 
     @staticmethod
@@ -199,12 +224,15 @@ class GovParser(Parser):
 class MunParser(Parser):
     
     def __init__(self, file, url):
+        print(file, "  ", url)
         super().__init__(file, url)
+        
         
     def store_data(self, element):
         # store_data(self.data["nadf"], element) #aqui eu nao quero rodar o dado de cada municipio
-        store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
-        
+        # return store_resume(self.data["nadf"], self.simplify(), self.cdabr, self.tpabr)
+        return self.data["nadf"], self.simplify(), self.cdabr, self.tpabr
+    
     @staticmethod
     def validate(nm):
         import re
