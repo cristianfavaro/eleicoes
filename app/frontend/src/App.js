@@ -16,11 +16,12 @@ const Loading = () => {
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto 350px;
-  grid-template-rows: 150px auto;
+  grid-template-rows: 70px 50px calc(100vh - 120px);
   grid-template-areas:
-  'HE HE'
-  'CT SB'
-`
+  'MH MH'
+  'SH SB'
+  'CT SB';
+`;
 
 const Layout = () => {
   return <Outlet/>  

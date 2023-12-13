@@ -1,7 +1,7 @@
 import React from "react";
 import AsyncSelect from 'react-select/async';
 
-  
+
 const Search = ({geojson, setClicked}) => {
     
     const filter = (inputValue) => {

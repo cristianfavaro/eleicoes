@@ -1,15 +1,11 @@
 import styled from "styled-components";
 
-export const GeoChartContainer = styled.div`
-`;
 
 export const Container = styled.div`
-  width: 500px;
   display: flex;
-  flex-direction: column;
-  position: relative;
   grid-area: CT;
-  
+  padding: 0 0.5rem;
+
   >span{
     position: absolute;
     top: 80px;

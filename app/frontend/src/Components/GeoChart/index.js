@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator, json } from "d3";
 import PopOver from "../PopOver";
-import { Container, GeoChartContainer} from "./styles";
+import { Container } from "./styles";
 import Panel from "./Panel";
-import Search from "./Search";
 import { colorPicker } from '../../utils/colorPicker';
 import {useAPIFetch} from '../../hooks/useAPIFetch';
 import styled from "styled-components";
+import SubHeader from '../SubHeader';
+
 /**
  * Component that renders a map.
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
@@ -85,7 +86,6 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   }, [geojson, clicked]);
 
   return <Container ref={wrapperRef}> 
-      <Search {...{geojson, setClicked}}/>
       <Back {...{clicked, setClicked}}/>
       <svg id="map" ref={svgRef}></svg>
     </Container>  
@@ -118,6 +118,7 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
 
 
   return <React.Fragment>
+    <SubHeader {...{geojson, setClicked}}/>
     <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
     <Panel data={data && transformData(data)} clicked={clicked} titleComponent={titleComponent}/>
     <PopOver titleComponent={titleComponent} hovered={hovered && hovered || undefined} />      
@@ -150,7 +151,6 @@ const TitleContainer = styled.div``
 const TitleComponent = ({selected}) => {
   return <TitleContainer className="header">{selected && selected.properties["nm"]} </TitleContainer>
 }
-
 
 GeoChart.defaultProps = {
   joinFunc: joinFunc,
