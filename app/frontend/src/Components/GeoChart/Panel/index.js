@@ -60,8 +60,8 @@ export default function Panel({clicked, data, titleComponent}){
 
   return <Container>
     
-    {
-       selected && selected.properties.data && <React.Fragment>
+        {
+         selected && selected.properties.data && <React.Fragment>
           <Header clicked={selected} titleComponent={titleComponent}/>
           {
               selected.properties.data.c.map(
@@ -70,8 +70,8 @@ export default function Panel({clicked, data, titleComponent}){
                 {...cand}
                 img={`https://resultados.tse.jus.br/oficial/ele2022/${ele}/fotos/${ ["546", "547"].indexOf(ele) > -1 ? uf.toLowerCase() : "br"}/${cand.sqcand}.jpeg`}
               />
-)
-          }
+            )
+        }
         <Cand nmu="Brancos" vap={selected.properties.data.vb} pvap={selected.properties.data.pvb}/>
         <Cand nmu="Nulos" vap={selected.properties.data.vn} pvap={selected.properties.data.ptvn}/>    
        </React.Fragment>  

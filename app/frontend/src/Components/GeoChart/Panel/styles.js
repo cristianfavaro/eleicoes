@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     border: 1px solid lightgray;
-    height: 50vh;
+    height: 80vh;
     overflow: auto;
     grid-area: SB;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 0 0.5rem 0 0.5rem;
     
     .top-container{
         position: sticky;
