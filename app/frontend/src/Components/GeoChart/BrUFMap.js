@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import GeoChart from './index';
 import {useControls} from '../../contexts/ControlsContext';
 
