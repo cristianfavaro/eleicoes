@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/eleicao/static/css/main.5211c880.css",
+    "main.js": "/eleicao/static/js/main.64321207.js",
+    "static/js/798.952cdcac.chunk.js": "/eleicao/static/js/798.952cdcac.chunk.js",
+    "static/js/449.2d2026eb.chunk.js": "/eleicao/static/js/449.2d2026eb.chunk.js",
+    "static/js/368.38843096.chunk.js": "/eleicao/static/js/368.38843096.chunk.js",
+    "index.html": "/eleicao/index.html",
+    "main.5211c880.css.map": "/eleicao/static/css/main.5211c880.css.map",
+    "main.64321207.js.map": "/eleicao/static/js/main.64321207.js.map",
+    "798.952cdcac.chunk.js.map": "/eleicao/static/js/798.952cdcac.chunk.js.map",
+    "449.2d2026eb.chunk.js.map": "/eleicao/static/js/449.2d2026eb.chunk.js.map",
+    "368.38843096.chunk.js.map": "/eleicao/static/js/368.38843096.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5211c880.css",
+    "static/js/main.64321207.js"
+  ]
+}
