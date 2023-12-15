@@ -29,9 +29,9 @@ function BrMunMap() {
   };
 
   return <GeoChart 
-    urlData={`http://localhost:8080/eleicoes/${ele}/br/br.json`}
-    urlBrief={`http://localhost:8080/eleicoes/${ele}/br/muns.json`}
-    urlMap="http://localhost:8080/maps/br-mun.json" 
+    urlData={`https://raw.githubusercontent.com/cristianfavaro/eleicoes/main/app/frontend/data/eleicoes/${ele}/br/br.json`}
+    urlBrief={`https://raw.githubusercontent.com/cristianfavaro/eleicoes/main/app/frontend/data/eleicoes/${ele}/br/muns.json`}
+    urlMap="https://raw.githubusercontent.com/cristianfavaro/eleicoes/main/app/frontend/data/maps/br-mun.json" 
     joinFunc={joinFunc}
   />    
 }
