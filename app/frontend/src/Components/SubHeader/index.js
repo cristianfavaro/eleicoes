@@ -12,15 +12,26 @@ const Container = styled.div`
     a{
         margin-right: 0.2rem;
     }
+    .btns{
+        button{
+            margin: 0 0.2rem;
+            padding: 0.2rem;
+            a{
+                color: inherit; /* blue colors for links too */
+                text-decoration: inherit; /* no underline */
+            }
+        }
+    }
+    
 `
 
 const SubHeader = ({geojson, setClicked}) => {
     
     return <Container>
         <Search {...{geojson, setClicked}}/>
-        <div>
-            <Link className="btn btn-info btn-sm" to="uf">Estados</Link>
-            <Link className="btn btn-info btn-sm" to="/">Municípios</Link>
+        <div className='btns'>
+            <button><Link className="btn btn-info btn-sm" to="/uf">Estados</Link></button>
+            <button><Link className="btn btn-info btn-sm" to="/">Municípios</Link></button>
         </div>
     </Container>
 }
