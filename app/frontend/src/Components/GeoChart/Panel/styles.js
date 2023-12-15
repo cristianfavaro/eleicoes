@@ -15,6 +15,7 @@ export const Container = styled.div`
         justify-content: space-between;
         background-color: white;
         align-items: center;
+        padding: 0.5rem 0;
     };
     
     .header{
@@ -26,17 +27,16 @@ export const Container = styled.div`
 export const CandContainer = styled.div`
     display: flex;
     align-items: center;
-    font-size: 0.5rem;
-    
+    font-size: 0.5rem;    
     border-bottom: 1px solid lightgray;
-    
     b{
         font-size: 0.8rem;
-    }
+    };
     img{
-        height: 70px;
-        border-radius: 100%;
-    }
+        width: 60px;
+        margin: 0.5rem;
+        /* clip-path: circle(); */
+    };
     >div{
         width: 100%;
     }

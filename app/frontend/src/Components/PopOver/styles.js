@@ -18,7 +18,7 @@ export const Container = styled.div.attrs(
 )`
   border: 1px solid darkgray;
   background-color: white; 
-  width: 200px;
+  width: 250px;
   position: fixed;
   display: ${({$show}) => $show ? "block" : "none"};
   transition: transform 0.23s; //Sticking effect

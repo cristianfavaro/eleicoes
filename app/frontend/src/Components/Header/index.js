@@ -6,6 +6,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0.2rem 0;
+    background-color: lightgray;
+    h3{
+        margin: 0.5rem;
+    };
     a{
         margin: 0.2rem;
     };

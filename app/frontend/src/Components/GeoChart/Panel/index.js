@@ -8,9 +8,10 @@ import {useControls} from '../../../contexts/ControlsContext';
 const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
   
   return <CandContainer>
-    {
-      <img src={img} alt="image" />
-    }
+    
+    <img src={img} alt="image" />
+    
+    
     <div>
         <div className="info">
             <div className="name">
