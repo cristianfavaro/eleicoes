@@ -13,7 +13,6 @@ import SubHeader from '../SubHeader';
  * https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/12-geo/src/GeoChart.js
  */
 
-
 const colorScale = (feature, clicked) => {  
   if(feature.properties.data){
     if(clicked){
@@ -31,7 +30,7 @@ const colorScale = (feature, clicked) => {
 
 function joinFunc(features, data){
   return features
-}
+};
 
 function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
   const svgRef = useRef();
@@ -99,9 +98,6 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
   const [clicked, setClicked] = useState(null);
   const [geojson, setGeojson] = useState(false);
 
-  useEffect(()=>{
-    console.log(clicked)
-  }, [clicked] )
 
   useEffect(()=>{
     Promise.all([

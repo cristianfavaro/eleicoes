@@ -7,7 +7,6 @@ const Container = styled.div`
     grid-area: SH; 
     padding: 0.5rem;
     display: flex;
-    width: 100%;
     justify-content: space-evenly;
     align-items: center;
     a{

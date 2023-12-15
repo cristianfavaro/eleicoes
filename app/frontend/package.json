@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage": "https://cristianfavaro.github.io/eleicao/",
+  "homepage": "https://cristianfavaro.github.io/eleicoes/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
