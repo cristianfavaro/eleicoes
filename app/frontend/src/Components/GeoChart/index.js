@@ -113,6 +113,7 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
   }, [urlMap, urlBrief])
 
 
+  
   return <React.Fragment>
     <SubHeader {...{geojson, setClicked}}/>
     <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
