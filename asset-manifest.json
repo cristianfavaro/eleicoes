@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/eleicoes/static/css/main.5211c880.css",
-    "main.js": "/eleicoes/static/js/main.731b6251.js",
-    "static/js/798.c363d946.chunk.js": "/eleicoes/static/js/798.c363d946.chunk.js",
-    "static/js/449.35aac06d.chunk.js": "/eleicoes/static/js/449.35aac06d.chunk.js",
+    "main.css": "/eleicoes/static/css/main.bbeb12b5.css",
+    "main.js": "/eleicoes/static/js/main.e8d7212d.js",
+    "static/js/798.85d914e9.chunk.js": "/eleicoes/static/js/798.85d914e9.chunk.js",
+    "static/js/449.6de54bc4.chunk.js": "/eleicoes/static/js/449.6de54bc4.chunk.js",
     "static/js/368.38843096.chunk.js": "/eleicoes/static/js/368.38843096.chunk.js",
     "index.html": "/eleicoes/index.html",
-    "main.5211c880.css.map": "/eleicoes/static/css/main.5211c880.css.map",
-    "main.731b6251.js.map": "/eleicoes/static/js/main.731b6251.js.map",
-    "798.c363d946.chunk.js.map": "/eleicoes/static/js/798.c363d946.chunk.js.map",
-    "449.35aac06d.chunk.js.map": "/eleicoes/static/js/449.35aac06d.chunk.js.map",
+    "main.bbeb12b5.css.map": "/eleicoes/static/css/main.bbeb12b5.css.map",
+    "main.e8d7212d.js.map": "/eleicoes/static/js/main.e8d7212d.js.map",
+    "798.85d914e9.chunk.js.map": "/eleicoes/static/js/798.85d914e9.chunk.js.map",
+    "449.6de54bc4.chunk.js.map": "/eleicoes/static/js/449.6de54bc4.chunk.js.map",
     "368.38843096.chunk.js.map": "/eleicoes/static/js/368.38843096.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5211c880.css",
-    "static/js/main.731b6251.js"
+    "static/css/main.bbeb12b5.css",
+    "static/js/main.e8d7212d.js"
   ]
 }
