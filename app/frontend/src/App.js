@@ -8,7 +8,7 @@ const BrUFMap = lazy(() => import('./Components/GeoChart/BrUFMap'));
 const BrMunMap = lazy(() => import('./Components/GeoChart/BrMunMap')); 
 
 const Loading = () => {
-  return <div>
+  return <div style={{margin: "1rem"}}>
     Baixando...
   </div>
 }
