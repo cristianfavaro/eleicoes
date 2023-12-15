@@ -17,12 +17,13 @@ const Search = ({geojson, setClicked}) => {
             resolve(filter(inputValue));
     });
       
-    return <AsyncSelect 
-      isClearable
-      loadOptions={promiseOptions} 
-      placeholder="Digite o nome da localidade"
-      onChange={ e => setClicked(e ? e.selected : null)}
-    />
+    return <div style={{width: '300px'}}><AsyncSelect 
+        isClearable
+        loadOptions={promiseOptions} 
+        placeholder="Digite o nome da localidade"
+        onChange={ e => setClicked(e ? e.selected : null)}
+      /> 
+    </div>
 
   }
   

@@ -4,7 +4,7 @@ import PopOver from "../PopOver";
 import { Container } from "./styles";
 import Panel from "./Panel";
 import { colorPicker } from '../../utils/colorPicker';
-import {useAPIFetch} from '../../hooks/useAPIFetch';
+
 import styled from "styled-components";
 import SubHeader from '../SubHeader';
 
@@ -93,7 +93,7 @@ function Map({ hovered, setHovered, geojson, colorScale, clicked, setClicked}) {
 
 const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleComponent}) => {
 
-  const {response: data, loading, error} = useAPIFetch(urlData);
+  
   const [hovered, setHovered] = useState(null);
   const [clicked, setClicked] = useState(null);
   const [geojson, setGeojson] = useState(false);
@@ -117,22 +117,12 @@ const GeoChart = ({urlData, urlMap, urlBrief, colorScale, joinFunc, titleCompone
   return <React.Fragment>
     <SubHeader {...{geojson, setClicked}}/>
     <Map {...{colorScale, geojson, hovered, setHovered, clicked, setClicked}}/>
-    <Panel data={data && transformData(data)} clicked={clicked} titleComponent={titleComponent}/>
+    <Panel urlData={urlData} clicked={clicked} titleComponent={titleComponent}/>
     <PopOver titleComponent={titleComponent} hovered={hovered && hovered || undefined} />      
   </React.Fragment>
 };
 
-function transformData(data){
-  return {
-    properties: {
-      nm: "Brasil",
-      data: {
-        ...data["brief"],
-        c: data["values"]
-      }
-    },
-  }
-}
+
 
 const Back = ({clicked, setClicked}) => {
 

@@ -8,6 +8,7 @@ export function useAPI(url, {method="GET", params={}} = {}){
     const [error, setError] = useState(false);
     
     async function fetchData(){
+        setResponse(false);
         setLoading(true);
         setError(false);
         await fetch(url, {

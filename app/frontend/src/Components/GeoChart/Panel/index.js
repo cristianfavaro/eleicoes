@@ -4,6 +4,19 @@ import { colorPicker } from "../../../utils/colorPicker";
 import { Container, CandContainer } from "./styles";
 import CircleProgress from "../../../utils/CircleProgress";
 import {useControls} from '../../../contexts/ControlsContext';
+import {useAPI} from '../../../hooks/useAPIFetch';
+
+function transformData(data){
+  return {
+    properties: {
+      nm: "Brasil",
+      data: {
+        ...data["brief"],
+        c: data["values"]
+      }
+    },
+  }
+}
 
 const Cand = React.memo(({img, e, n, nmu, p, pvap, vap, st}) => {
   
@@ -53,11 +66,16 @@ const Header = ({clicked, titleComponent: Title}) =>{
 
 
 
-export default function Panel({clicked, data, titleComponent}){
+export default function Panel({clicked, urlData, titleComponent}){
 
-  const selected = clicked ? clicked : data;
+  const {response: data, loading, error, fetchData} = useAPI(urlData);
+  const selected = clicked ? clicked : data && transformData(data);
   const uf = clicked ? clicked["properties"]["uf"] || clicked["properties"]["cd"] : "br";
   const {ele} = useControls();
+
+  useEffect(()=>{
+    fetchData();
+  }, [urlData, ele])
 
   return <Container>
     
